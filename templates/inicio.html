@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Little Corner of Art: descubre obras, artistas y cursos de arte.">
+    <title>The Little Corner of Art</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inicio.css')}}">
+    <style>
+        /* Estilos para el Modal de Contraseña de Administración */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: #ffffff;
+            padding: 30px 35px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-content h3 {
+            font-size: 22px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .modal-content input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1dde2;
+            border-radius: 6px;
+            font-size: 15px;
+            margin-bottom: 15px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .modal-content input[type="password"]:focus {
+            border-color: #496b7b;
+        }
+
+        .modal-acciones {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-modal-submit {
+            background-color: #496b7b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-modal-submit:hover {
+            background-color: #405d69;
+        }
+
+        .btn-modal-close {
+            background-color: #e0e0e0;
+            color: #333;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .error-msg {
+            color: #b40012;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .btn-admin-nav {
+            background: #ffffff;
+            color: #405d69 !important;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600 !important;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-admin-nav:hover {
+            background: #b6cbd2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🎨 The Little Corner of Art</div>
+        <nav aria-label="Navegación principal">
+            <a href="#inicio">Inicio</a>
+            <a href="/info">Información</a>
+            <a href="/cursos">Cursos</a>
+            <a href="/artistas">Artistas</a>
+            <a href="/generar_qr">Generar QR 📱</a>
+            <button class="btn-admin-nav" onclick="abrirModalAdmin()">Panel Admin 🔒</button>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Welcome to<br>The Little Corner of Art</h1>
+            <p>Un pequeño rincón donde la creatividad, los colores y la imaginación cobran vida.</p>
+            <a href="#galeria" class="button">Explorar el arte</a>
+        </div>
+        <img src="{{ url_for('static', filename='imgs/arte1.jpg')}}" alt="Obra de arte colorida" class="hero-image">
+    </section>
+
+    <section class="art-section">
+        <h2>Our Little Art Gallery 🎨</h2>
+        <p>Descubre diferentes formas de expresar la creatividad a través del arte.</p>
+        <div class="gallery">
+            <article class="card">
+                <img src="{{ url_for('static', filename='imgs/pintura1.jpg') }}" alt="Pintura artística" loading="lazy">
+                <h3>Painting</h3>
+                <p>Explora el maravilloso mundo de los colores y las pinturas.</p>
+            </article>
+
+            <article class="card">
+                <img src="{{ url_for('static', filename='imgs/dibujo1.jpg') }}" alt="Dibujo artístico" loading="lazy">
+                <h3>Drawing</h3>
+                <p>Cada línea puede convertirse en una nueva historia.</p>
+            </article>
+
+            <article class="card">
+                <img src="{{ url_for('static', filename='imgs/pinceles1.jpg') }}" alt="Pinceles y materiales de arte" loading="lazy">
+                <h3>Creativity</h3>
+                <p>Materiales, ideas e imaginación para crear algo único.</p>
+            </article>
+        </div>
+    </section>
+
+    <main id="galeria">
+        <div class="titulo">
+            <h2>Obras de la comunidad</h2>
+            <p>Descubre, califica y comenta las obras de otros artistas.</p>
+        </div>
+
+        <section class="galeria" aria-label="Galería de obras">
+            <article class="publicacion">
+                <img class="obra" src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80" alt="Paisaje artístico" loading="lazy">
+                <div class="contenido">
+                    <div class="obra-titulo">
+                        <div>
+                            <h3>Atardecer en el lago</h3>
+                            <p class="artista">👤 LuzArte</p>
+                        </div>
+                        <strong>$800 MXN</strong>
+                    </div>
+                    <p><b>Técnica:</b> Óleo sobre lienzo</p>
+                    <p><b>Descripción:</b> Una pintura inspirada en los colores del atardecer y la tranquilidad de la naturaleza.</p>
+                    <div class="calificacion" aria-label="Calificación: 4.8 de 5">
+                        <span class="estrellas">★★★★★</span>
+                        <span>4.8 / 5</span>
+                    </div>
+                    <div class="acciones">
+                        <span class="like">♥️</span>
+                        <span>24 Me gusta</span>
+                        <span class="comentario">💬</span>
+                        <span>5 comentarios</span>
+                    </div>
+                    <div class="comentario-box">
+                        <div class="avatar">V</div>
+                        <div>
+                            <b>Vale_Art</b>
+                            <p>¡Qué colores tan bonitos! Me encanta cómo combinaste el paisaje.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="publicacion">
+                <img class="obra" src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&w=900&q=80" alt="Retrato artístico" loading="lazy">
+                <div class="contenido">
+                    <div class="obra-titulo">
+                        <div>
+                            <h3>Rostro y flores</h3>
+                            <p class="artista">👤 MiaPintora</p>
+                        </div>
+                        <strong>$650 MXN</strong>
+                    </div>
+                    <p><b>Técnica:</b> Acuarela</p>
+                    <p><b>Descripción:</b> Retrato inspirado en la naturaleza y en la belleza de las flores.</p>
+                    <div class="calificacion" aria-label="Calificación: 4.5 de 5">
+                        <span class="estrellas">★★★★☆</span>
+                        <span>4.5 / 5</span>
+                    </div>
+                    <div class="acciones">
+                        <span class="like">♥️</span>
+                        <span>18 Me gusta</span>
+                        <span class="comentario">💬</span>
+                        <span>3 comentarios</span>
+                    </div>
+                    <div class="comentario-box">
+                        <div class="avatar">S</div>
+                        <div>
+                            <b>SofiCreativa</b>
+                            <p>Me encanta la técnica de la acuarela. Los colores se ven muy suaves.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="publicacion">
+                <img class="obra" src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=900&q=80" alt="Obra artística" loading="lazy">
+                <div class="contenido">
+                    <div class="obra-titulo">
+                        <div>
+                            <h3>La gran ola</h3>
+                            <p class="artista">👤 DaniArte</p>
+                        </div>
+                        <strong>$950 MXN</strong>
+                    </div>
+                    <p><b>Técnica:</b> Grabado</p>
+                    <p><b>Descripción:</b> Una obra inspirada en la fuerza de la naturaleza y el movimiento del agua.</p>
+                    <div class="calificacion" aria-label="Calificación: 4.9 de 5">
+                        <span class="estrellas">★★★★★</span>
+                        <span>4.9 / 5</span>
+                    </div>
+                    <div class="acciones">
+                        <span class="like">♥️</span>
+                        <span>32 Me gusta</span>
+                        <span class="comentario">💬</span>
+                        <span>7 comentarios</span>
+                    </div>
+                    <div class="comentario-box">
+                        <div class="avatar">C</div>
+                        <div>
+                            <b>CarlosDibuja</b>
+                            <p>¡Increíble trabajo! ¿Cómo lograste ese efecto del agua?</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <section class="quote">
+        <p>“Art is not what you see, but what you make others see.”</p>
+    </section>
+
+    <!-- MODAL DE AUTENTICACIÓN -->
+    <div id="modal-admin" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Acceso Administrativo</h3>
+            <p>Ingresa la contraseña para entrar al panel de administración.</p>
+            <input type="password" id="input-password" placeholder="Escribe la contraseña..." onkeypress="evaluarEnter(event)">
+            <div id="error-password" class="error-msg">Contraseña incorrecta. Inténtalo de nuevo.</div>
+            <div class="modal-acciones">
+                <button class="btn-modal-close" onclick="cerrarModalAdmin()">Cancelar</button>
+                <button class="btn-modal-submit" onclick="verificarPassword()">Acceder</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p> © 2026 The Little Corner of Art | Made with 🎨 and creativity</p>
+    </footer>
+
+    <script>
+        // Contraseña integrada directamente en la página
+        const CONTRASEÑA_CORRECTA = "art2026";
+
+        function abrirModalAdmin() {
+            document.getElementById('modal-admin').style.display = 'flex';
+            document.getElementById('input-password').focus();
+        }
+
+        function cerrarModalAdmin() {
+            document.getElementById('modal-admin').style.display = 'none';
+            document.getElementById('input-password').value = '';
+            document.getElementById('error-password').style.display = 'none';
+        }
+
+        function verificarPassword() {
+            const pass = document.getElementById('input-password').value;
+            if (pass === CONTRASEÑA_CORRECTA) {
+                window.location.href = "/admin";
+            } else {
+                document.getElementById('error-password').style.display = 'block';
+            }
+        }
+
+        function evaluarEnter(e) {
+            if (e.key === 'Enter') {
+                verificarPassword();
+            }
+        }
+    </script>
+</body>
+</html>

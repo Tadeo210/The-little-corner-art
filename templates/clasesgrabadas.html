@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería - Aprende desde Cero</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f7f7f7; padding: 40px 20px; text-align: center; }
+        h1 { margin-bottom: 10px; color: #222; }
+        p { color: #666; margin-bottom: 30px; }
+        .galeria { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
+        .video-card { background: white; border-radius: 8px; overflow: hidden; width: 280px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: left; }
+        .video-thumbnail { height: 160px; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; cursor: pointer; }
+        .vid-1 { background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f'); }
+        .vid-2 { background-image: url('https://images.unsplash.com/photo-1547891654-e66ed7ebb968'); }
+        .vid-3 { background-image: url('https://images.unsplash.com/photo-1561839561-b13bcfe95249'); }
+        .info { padding: 15px; }
+        .info h3 { font-size: 16px; margin-bottom: 8px; }
+        .info p { font-size: 13px; color: #777; margin-bottom: 0; }
+        .btn-volver { display: inline-block; margin-top: 30px; padding: 10px 20px; background: #222; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>Galería de Clases Grabadas</h1>
+    <p>Aprende a tu propio ritmo con las lecciones preparadas desde cero.</p>
+
+    <div class="galeria">
+        <div class="video-card">
+            <div class="video-thumbnail vid-1">▶</div>
+            <div class="info">
+                <h3>Clase 1: Introducción al Dibujo Básicos</h3>
+                <p>Aprende sobre perspectiva y proporciones iniciales.</p>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-thumbnail vid-2">▶</div>
+            <div class="info">
+                <h3>Clase 2: Mezcla de Colores en Acrílico</h3>
+                <p>Domina la teoría del color y las mezclas clave.</p>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-thumbnail vid-3">▶</div>
+            <div class="info">
+                <h3>Clase 3: Modelado Básico en Plastilina/Arcilla</h3>
+                <p>Primeros pasos para volumen y estructuras tridimensionales.</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="/cursos" class="btn-volver">← Volver a la página principal</a>
+
+</body>
+</html>

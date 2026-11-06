@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leonardo da Vinci - Biografía y Obras</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/artistas2.css')}}">
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="logo">
+            Nuestra Pagina Web
+        </div>
+        <nav>
+            <a href="/artistas">← Volver a Artistas</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="pagina-artista">
+        <!-- SECCIÓN BIOGRAFÍA -->
+        <section class="seccion-biografia">
+            <h1>Leonardo da Vinci</h1>
+            <div class="contenedor-bio">
+                <div class="bio-texto">
+                    <h2>Biografía</h2>
+                    <p>
+                        Leonardo di ser Piero da Vinci (Vinci, 15 de abril de 1452-Amboise, 2 de mayo de 1519) fue un polímata florentino del Renacimiento italiano que destacó como pintor, anatomista, arquitecto, paleontólogo, botánico, científico, escritor, escultor, filósofo, ingeniero, inventor, músico, poeta y urbanista.
+                    </p>
+                    <p>
+                        Considerado uno de los más grandes artistas de la historia, Leonardo es el arquetipo y símbolo del hombre del Renacimiento: un genio incansable con una curiosidad insaciable y una capacidad de invención sin precedentes. Sus obras pictóricas y sus cuadernos de notas llenos de diseños futuristas han maravillado a la humanidad durante siglos.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN OBRAS RECONOCIDAS -->
+        <section class="seccion-obras">
+            <h2>Pinturas Más Reconocidas</h2>
+            <div class="grid-obras">
+                <!-- Obra 1 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen7.jpg')}}" alt="La Mona Lisa">
+                    <div class="obra-info">
+                        <h3>La Mona Lisa / La Gioconda (1503-1519)</h3>
+                        <p>
+                            Sin duda, el retrato más famoso y analizado de la historia del arte universal. Destaca por la enigmática sonrisa de la modelo, el uso magistral de la técnica del *sfumato* y la fascinante profundidad del paisaje de fondo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 2 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen8.jpg')}}" alt="La última cena">
+                    <div class="obra-info">
+                        <h3>La Última Cena (1495-1498)</h3>
+                        <p>
+                            Un monumental fresco pintado en la pared del convento de Santa Maria delle Grazie en Milán. Representa la dramática reacción de los doce apóstoles en el preciso momento en que Jesús anuncia que uno de ellos le va a traicionar.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 3 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen9.jpg')}}" alt="La Virgen de las Rocas">
+                    <div class="obra-info">
+                        <h3>La Virgen de las Rocas (1483-1486)</h3>
+                        <p>
+                            Una obra maestra que muestra la maestría de Leonardo en el manejo de las luces y sombras (claroscuro). Representa a la Virgen María y al Niño Jesús junto al pequeño San Juan Bautista en una atmósfera mística y rocosa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PAGINA -->
+    <footer>
+        <p>© 2026 Mi Pagina Web | Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>

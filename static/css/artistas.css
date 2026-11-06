@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: #222;
+}
+
+/* ---------------- BARRA DE MENÚ (IDÉNTICA A CURSOS) ---------------- */
+
+header {
+    min-height: 76px;
+    padding: 18px 6%;
+    background-color: #496b7b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    font-size: clamp(19px, 2vw, 27px);
+    font-weight: 700;
+    color: #ffffff;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+
+nav a:hover,
+nav a:focus-visible {
+    color: #b6cbd2;
+}
+
+/* ---------------- PORTADA / HERO ---------------- */
+
+.portada {
+    height: 320px;
+    position: relative;
+    overflow: hidden;
+}
+
+.fondo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(70, 90, 100, 0.55), rgba(70, 90, 100, 0.55)), url("https://images.unsplash.com/photo-1579783902614-a3fb3927b675");
+    background-size: cover;
+    background-position: center;
+}
+
+.titulo {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding-top: 90px;
+    color: white;
+}
+
+.titulo h1 {
+    font-size: 52px;
+    letter-spacing: 3px;
+    text-shadow: 2px 3px 5px rgba(0,0,0,0.5);
+}
+
+.titulo p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* ---------------- SECCIÓN SOBRE NOSOTROS ---------------- */
+
+.nosotros {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px 20px 20px;
+}
+
+.nosotros h2 {
+    font-size: 26px;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+.nosotros p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ---------------- SECCIÓN DE ARTISTAS ---------------- */
+
+.artistas-seccion {
+    text-align: center;
+    padding: 40px 20px 70px;
+    background-color: #f7f7f7;
+    margin-top: 30px;
+}
+
+.artistas-seccion h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: #222;
+}
+
+.tarjetas-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.tarjeta-artista {
+    background: #ffffff;
+    width: 320px;
+    border-radius: 12px;
+    padding: 30px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta-artista:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.avatar-artista {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #b6cbd2, #496b7b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.tarjeta-artista h3 {
+    font-size: 20px;
+    color: #222;
+    margin-bottom: 12px;
+}
+
+.frase {
+    font-style: italic;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+.boton-tarjeta {
+    display: inline-block;
+    padding: 10px 24px;
+    background-color: white;
+    border: 1px solid #496b7b;
+    border-radius: 5px;
+    color: #496b7b;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.boton-tarjeta:hover {
+    background-color: #496b7b;
+    color: #ffffff;
+}
+
+/* ---------------- PIE DE PÁGINA ---------------- */
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+}
+
+/* ---------------- MEDIA QUERIES (RESPONSIVIDAD) ---------------- */
+
+@media (max-width: 750px) {
+    header {
+        justify-content: center;
+        text-align: center;
+        padding: 18px 15px;
+    }
+
+    .logo {
+        width: 100%;
+        font-size: 21px;
+    }
+
+    nav {
+        gap: 10px 17px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    .titulo h1 {
+        font-size: 38px;
+    }
+
+    .tarjeta-artista {
+        width: 100%;
+        max-width: 350px;
+    }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Monet - Biografía y Obras</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/artistas2.css')}}">
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="logo">
+            Nuestra Pagina Web
+        </div>
+        <nav>
+            <a href="/artistas">← Volver a Artistas</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="pagina-artista">
+        <!-- SECCIÓN BIOGRAFÍA -->
+        <section class="seccion-biografia">
+            <h1>Claude Monet</h1>
+            <div class="contenedor-bio">
+                <div class="bio-texto">
+                    <h2>Biografía</h2>
+                    <p>
+                        Oscar-Claude Monet (París, 14 de noviembre de 1840-Giverny, 5 de diciembre de 1926) fue un pintor francés, uno de los creadores fundamentales del impresionismo. El término "impresionismo" proviene precisamente de su obra *Impresión, sol naciente*, expuesta en 1874.
+                    </p>
+                    <p>
+                        A lo largo de su vida, Monet se obsesionó con capturar la luz natural, los efectos cambiantes de la atmósfera y el paso del tiempo sobre los paisajes. Sus famosos jardines en Giverny, con su puente japonés y sus estanques de nenúfares, sirvieron de inspiración directa para muchas de sus obras maestras más célebres en su etapa madura.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN OBRAS RECONOCIDAS -->
+        <section class="seccion-obras">
+            <h2>Pinturas Más Reconocidas</h2>
+            <div class="grid-obras">
+                <!-- Obra 1 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen16.jpg')}}" alt="Impresión, sol naciente">
+                    <div class="obra-info">
+                        <h3>Impresión, sol naciente (1872)</h3>
+                        <p>
+                            La obra que dio nombre a todo el movimiento impresionista. Muestra el puerto de Le Havre envuelto en la bruma matutina, con pinceladas rápidas y sueltas que priorizan la sensación de la luz sobre los detalles precisos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 2 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen17.jpg')}}" alt="Nenúfares">
+                    <div class="obra-info">
+                        <h3>Nenúfares (Serie de 1897-1926)</h3>
+                        <p>
+                            Una extensa serie de unas 250 pinturas al óleo que representan su famoso estanque de nenúfares en Giverny. Explora de forma magistral los reflejos del agua, el cielo y la vegetación flotante en diferentes momentos del día.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 3 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen18.jpg')}}" alt="Catedral de Ruan">
+                    <div class="obra-info">
+                        <h3>La catedral de Ruan (Serie de 1892-1894)</h3>
+                        <p>
+                            Una fascinante serie donde Monet pintó la fachada de la catedral de Ruan en decenas de ocasiones bajo distintas condiciones climáticas, horas del día y estaciones, demostrando cómo la luz transforma por completo los colores de un mismo objeto.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PAGINA -->
+    <footer>
+        <p>© 2026 Mi Pagina Web | Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>

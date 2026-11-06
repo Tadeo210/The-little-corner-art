@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Cursos - CRUD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: #f0f4f6; color: #222; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1, h2 { color: #405d69; margin-bottom: 20px; text-align: center; }
+        form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; background: #f7f7f7; padding: 20px; border-radius: 8px; border: 1px solid #d1dde2; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full { grid-column: span 2; }
+        label { font-size: 14px; font-weight: 600; margin-bottom: 5px; color: #496b7b; }
+        input { padding: 10px; border: 1px solid #d1dde2; border-radius: 5px; font-size: 14px; }
+        button, .btn { padding: 10px 20px; background-color: #496b7b; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; transition: 0.3s; }
+        button:hover, .btn:hover { background-color: #405d69; }
+        .btn-cancelar { background-color: #777; margin-left: 10px; }
+        .btn-cancelar:hover { background-color: #555; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #d1dde2; font-size: 14px; }
+        th { background-color: #496b7b; color: white; }
+        tr:hover { background-color: #f9fbfc; }
+        .acciones a { padding: 6px 12px; border-radius: 4px; font-size: 12px; text-decoration: none; color: white; font-weight: bold; margin-right: 5px; }
+        .btn-editar { background-color: #e6a100; }
+        .btn-editar:hover { background-color: #cc8f00; }
+        .btn-eliminar { background-color: #d94b62; }
+        .btn-eliminar:hover { background-color: #bd3c51; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎨 Gestión de Cursos</h1>
+
+        <!-- FORMULARIO CRUD (CREAR / EDITAR) -->
+        <form action="/" method="POST">
+            <!-- Campo oculto para guardar el ID si estamos editando -->
+            <input type="hidden" name="id_C" value="{{ curso_a_editar.id_C if curso_a_editar else '' }}">
+
+            <div class="form-group full">
+                <label for="nombre">Nombre del Curso:</label>
+                <input type="text" id="nombre" name="nombre" value="{{ curso_a_editar.nombre if curso_a_editar else '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hora">Hora:</label>
+                <input type="text" id="hora" name="hora" placeholder="Ej: 10:00 AM - 12:00 PM" value="{{ curso_a_editar.hora if curso_a_editar else '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="profesor">Profesor:</label>
+                <input type="text" id="profesor" name="profesor" value="{{ curso_a_editar.profesor if curso_a_editar else '' }}" required>
+            </div>
+
+            <div class="form-group full" style="flex-direction: row; align-items: center;">
+                <button type="submit">{{ 'Actualizar Curso' if curso_a_editar else 'Registrar Curso' }}</button>
+                {% if curso_a_editar %}
+                    <a href="/" class="btn btn-cancelar">Cancelar</a>
+                {% endif %}
+            </div>
+        </form>
+
+        <!-- TABLA PARA LEER Y ELIMINAR (READ & DELETE) -->
+        <h2>Lista de Cursos Registrados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Hora</th>
+                    <th>Profesor</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for curso in cursos %}
+                <tr>
+                    <td>{{ curso.id_C }}</td>
+                    <td>{{ curso.nombre }}</td>
+                    <td>{{ curso.hora }}</td>
+                    <td>{{ curso.profesor }}</td>
+                    <td class="acciones">
+                        <a href="/?edit={{ curso.id_C }}" class="btn-editar">Editar</a>
+                        <a href="/eliminar/{{ curso.id_C }}" class="btn-eliminar" onclick="return confirm('¿Estás seguro de eliminar este curso?');">Eliminar</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; color: #777;">No hay cursos registrados todavía.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

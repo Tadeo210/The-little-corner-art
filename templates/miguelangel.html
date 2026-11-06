@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel Ángel - Biografía y Obras</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/artistas2.css')}}">
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="logo">
+            Nuestra Pagina Web
+        </div>
+        <nav>
+            <a href="/artistas">← Volver a Artistas</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="pagina-artista">
+        <!-- SECCIÓN BIOGRAFÍA -->
+        <section class="seccion-biografia">
+            <h1>Miguel Ángel</h1>
+            <div class="contenedor-bio">
+                <div class="bio-texto">
+                    <h2>Biografía</h2>
+                    <p>
+                        Michelangelo Buonarroti (Caprese, 6 de marzo de 1475-Roma, 18 de febrero de 1564), conocido en español como Miguel Ángel, fue un arquitecto, escultor y pintor italiano del Renacimiento, considerado uno de los más grandes artistas de la historia tanto por sus esculturas como por sus obras pictóricas y arquitectónicas.
+                    </p>
+                    <p>
+                        Desarrolló su labor artística a lo largo de más de setenta años entre Florencia y Roma, época en la que patronos tan importantes como los Médici de Florencia y varios papas le encargaron proyectos monumentales. Su visión artística estuvo marcada por la grandiosidad, la anatomía perfecta y una profunda expresión emocional.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN OBRAS RECONOCIDAS -->
+        <section class="seccion-obras">
+            <h2>Pinturas y Obras Más Reconocidas</h2>
+            <div class="grid-obras">
+                <!-- Obra 1 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen10.jpg')}}" alt="La creación de Adán">
+                    <div class="obra-info">
+                        <h3>La creación de Adán (1511)</h3>
+                        <p>
+                            Fresco icónico ubicado en la bóveda de la Capilla Sixtina. Representa el episodio bíblico en el que Dios da vida a Adán mediante el toque casi imperceptible de sus dedos, convirtiéndose en una de las imágenes más famosas del arte mundial.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 2 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen11.jpg')}}" alt="Bóveda de la Capilla Sixtina">
+                    <div class="obra-info">
+                        <h3>Bóveda de la Capilla Sixtina (1508-1512)</h3>
+                        <p>
+                            Una de las obras maestras absolutas de la pintura renacentista. Miguel Ángel pintó más de mil metros cuadrados de techo cubiertos con escenas del Génesis, profetas y sibilas, mostrando un dominio monumental de la figura humana.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 3 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen12.jpg')}}" alt="La Piedad">
+                    <div class="obra-info">
+                        <h3>La Piedad (1498-1499)</h3>
+                        <p>
+                            Aunque es una obra escultórica en mármol (y su creación más célebre en este ámbito), es indispensable mencionar esta conmovedora representación de la Virgen María sosteniendo el cuerpo muerto de Jesucristo tras la crucifixión, ubicada en la Basílica de San Pedro.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PAGINA -->
+    <footer>
+        <p>© 2026 Mi Pagina Web | Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>

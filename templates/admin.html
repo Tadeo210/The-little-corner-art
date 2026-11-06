@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - The Little Corner of Art</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inicio.css')}}">
+    <style>
+        .admin-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .seccion-encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0 15px;
+            border-bottom: 2px solid #496b7b;
+            padding-bottom: 8px;
+        }
+
+        .seccion-encabezado h2 {
+            color: #222;
+            font-size: 22px;
+        }
+
+        .btn-agregar {
+            background-color: #496b7b;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-agregar:hover {
+            background-color: #405d69;
+        }
+
+        .card-form {
+            background: #ffffff;
+            border: 1px solid #d1dde2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: none;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #444;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        .tabla-contenedor {
+            background: #ffffff;
+            border: 1px solid #d1dde2;
+            border-radius: 10px;
+            overflow-x: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .tabla-admin {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .tabla-admin th {
+            background-color: #496b7b;
+            color: white;
+            padding: 12px 16px;
+            font-weight: 600;
+        }
+
+        .tabla-admin td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eef2f4;
+            color: #444;
+        }
+
+        .badge-curso {
+            background-color: #e8f1f5;
+            color: #405d69;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .btn-editar {
+            background-color: #e6a100;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-eliminar {
+            background-color: #d94b62;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-cancelar {
+            background-color: #888;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🎨 Base de Datos MySQL - Panel Admin</div>
+        <nav>
+            <a href="/">Volver a Inicio</a>
+            <a href="/cursos">Cursos</a>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        
+        <!-- ==================== 1. ALUMNOS ==================== -->
+        <div class="seccion-encabezado">
+            <h2>1. Gestión de Alumnos</h2>
+            <button class="btn-agregar" onclick="mostrarForm('form-alumno-card')">+ Registrar Alumno</button>
+        </div>
+
+        <div id="form-alumno-card" class="card-form">
+            <h3 id="alumno-title" style="margin-bottom:12px; color:#496b7b;">Agregar Alumno</h3>
+            <form onsubmit="guardarAlumno(event)">
+                <input type="hidden" id="alumno-id">
+                <div class="form-grid">
+                    <div class="form-group"><label>Nombre(s):</label><input type="text" id="al-nombre" required></div>
+                    <div class="form-group"><label>Apellido(s):</label><input type="text" id="al-apellido" required></div>
+                    <div class="form-group"><label>Fecha Nacimiento:</label><input type="date" id="al-fecha" required></div>
+                    <div class="form-group"><label>Grupo:</label><input type="text" id="al-grupo" required></div>
+                    <div class="form-group"><label>Curso Asignado:</label><select id="al-curso" required></select></div>
+                </div>
+                <button type="submit" class="btn-agregar">Guardar</button>
+                <button type="button" class="btn-cancelar" onclick="ocultarForm('form-alumno-card')">Cancelar</button>
+            </form>
+        </div>
+
+        <div class="tabla-contenedor">
+            <table class="tabla-admin">
+                <thead>
+                    <tr><th>ID</th><th>Nombre Completo</th><th>Fecha Nac.</th><th>Grupo</th><th>Curso Inscrito</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="tabla-alumnos"></tbody>
+            </table>
+        </div>
+
+        <!-- ==================== 2. CURSOS ==================== -->
+        <div class="seccion-encabezado">
+            <h2>2. Gestión de Cursos</h2>
+            <button class="btn-agregar" onclick="mostrarForm('form-curso-card')">+ Registrar Curso</button>
+        </div>
+
+        <div id="form-curso-card" class="card-form">
+            <h3 id="curso-title" style="margin-bottom:12px; color:#496b7b;">Agregar Curso</h3>
+            <form onsubmit="guardarCurso(event)">
+                <input type="hidden" id="curso-id">
+                <div class="form-grid">
+                    <div class="form-group"><label>Nombre del Curso:</label><input type="text" id="cur-nombre" required></div>
+                    <div class="form-group"><label>Día:</label><input type="text" id="cur-dia" placeholder="Ej. Lunes" required></div>
+                    <div class="form-group"><label>Horario:</label><input type="text" id="cur-horario" placeholder="Ej. 18:00 - 20:00 hrs" required></div>
+                    <div class="form-group"><label>Profesor Asignado:</label><select id="cur-profesor" required></select></div>
+                </div>
+                <button type="submit" class="btn-agregar">Guardar</button>
+                <button type="button" class="btn-cancelar" onclick="ocultarForm('form-curso-card')">Cancelar</button>
+            </form>
+        </div>
+
+        <div class="tabla-contenedor">
+            <table class="tabla-admin">
+                <thead>
+                    <tr><th>ID Curso</th><th>Materia / Curso</th><th>Día</th><th>Horario</th><th>Profesor Impartidor</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="tabla-cursos"></tbody>
+            </table>
+        </div>
+
+        <!-- ==================== 3. PROFESORES ==================== -->
+        <div class="seccion-encabezado">
+            <h2>3. Gestión de Profesores</h2>
+            <button class="btn-agregar" onclick="mostrarForm('form-profesor-card')">+ Registrar Profesor</button>
+        </div>
+
+        <div id="form-profesor-card" class="card-form">
+            <h3 id="prof-title" style="margin-bottom:12px; color:#496b7b;">Agregar Profesor</h3>
+            <form onsubmit="guardarProfesor(event)">
+                <input type="hidden" id="prof-id">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nombre Completo:</label>
+                        <input type="text" id="prof-nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Especialidad / Materia:</label>
+                        <select id="prof-especialidad" required>
+                            <!-- Opciones cargadas dinámicamente -->
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-agregar">Guardar</button>
+                <button type="button" class="btn-cancelar" onclick="ocultarForm('form-profesor-card')">Cancelar</button>
+            </form>
+        </div>
+
+        <div class="tabla-contenedor">
+            <table class="tabla-admin">
+                <thead>
+                    <tr><th>ID Prof.</th><th>Nombre Completo</th><th>Especialidad</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="tabla-profesores"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        let alumnosGlobal = [], cursosGlobal = [], profesoresGlobal = [];
+
+        async function cargarDatosBD() {
+            try {
+                const res = await fetch('/api/admin/datos');
+                const data = await res.json();
+                if (data.status === 'success') {
+                    alumnosGlobal = data.alumnos;
+                    cursosGlobal = data.cursos;
+                    profesoresGlobal = data.profesores;
+
+                    renderTablaAlumnos(data.alumnos);
+                    renderTablaCursos(data.cursos);
+                    renderTablaProfesores(data.profesores);
+                    
+                    poblarSelects(data.cursos, data.profesores);
+                }
+            } catch (err) {
+                console.error("Error al obtener datos:", err);
+            }
+        }
+
+        // --- RENDERS DE TABLAS ---
+
+        function renderTablaAlumnos(alumnos) {
+            const tbody = document.getElementById('tabla-alumnos');
+            tbody.innerHTML = '';
+            alumnos.forEach(a => {
+                const fecha = a.fecha_nacimiento ? a.fecha_nacimiento.split('00:00:00')[0] : '';
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>#${a.id}</strong></td>
+                        <td>${a.nombre} ${a.apellido}</td>
+                        <td>${fecha}</td>
+                        <td>${a.grupo}</td>
+                        <td><span class="badge-curso">${a.nombre_curso}</span></td>
+                        <td>
+                            <button class="btn-editar" onclick="prepararEditAlumno(${a.id})">Editar</button>
+                            <button class="btn-eliminar" onclick="eliminarEntidad('/api/alumnos', ${a.id})">Eliminar</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renderTablaCursos(cursos) {
+            const tbody = document.getElementById('tabla-cursos');
+            tbody.innerHTML = '';
+            cursos.forEach(c => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>#${c.id}</strong></td>
+                        <td>${c.nombre}</td>
+                        <td>${c.dia}</td>
+                        <td>${c.horario}</td>
+                        <td>${c.profesor}</td>
+                        <td>
+                            <button class="btn-editar" onclick="prepararEditCurso(${c.id})">Editar</button>
+                            <button class="btn-eliminar" onclick="eliminarEntidad('/api/cursos', ${c.id})">Eliminar</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renderTablaProfesores(profesores) {
+            const tbody = document.getElementById('tabla-profesores');
+            tbody.innerHTML = '';
+            profesores.forEach(p => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>#${p.id}</strong></td>
+                        <td>${p.nombre}</td>
+                        <td>${p.especialidad}</td>
+                        <td>
+                            <button class="btn-editar" onclick="prepararEditProfesor(${p.id})">Editar</button>
+                            <button class="btn-eliminar" onclick="eliminarEntidad('/api/profesores', ${p.id})">Eliminar</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function poblarSelects(cursos, profesores) {
+            // 1. Llenar select de cursos para el formulario de Alumnos
+            const selectCur = document.getElementById('al-curso');
+            selectCur.innerHTML = '';
+            cursos.forEach(c => {
+                selectCur.innerHTML += `<option value="${c.id}">${c.nombre} (${c.dia})</option>`;
+            });
+
+            // 2. Llenar select de profesores para el formulario de Cursos
+            const selectProf = document.getElementById('cur-profesor');
+            selectProf.innerHTML = '';
+            profesores.forEach(p => {
+                selectProf.innerHTML += `<option value="${p.id}">${p.nombre} - ${p.especialidad}</option>`;
+            });
+
+            // 3. Llenar select de materias para el formulario de Profesores (Cursos únicos)
+            const selectProfEspecialidad = document.getElementById('prof-especialidad');
+            selectProfEspecialidad.innerHTML = '';
+            
+            // Obtener nombres de cursos únicos para no duplicar en la lista desplegable
+            const cursosUnicos = [...new Set(cursos.map(c => c.nombre))];
+            
+            cursosUnicos.forEach(nombreCurso => {
+                selectProfEspecialidad.innerHTML += `<option value="${nombreCurso}">${nombreCurso}</option>`;
+            });
+        }
+
+        function mostrarForm(id) { document.getElementById(id).style.display = 'block'; }
+        function ocultarForm(id) { document.getElementById(id).style.display = 'none'; }
+
+        // --- LÓGICA DE GUARDA / EDICIÓN ---
+
+        async function guardarAlumno(e) {
+            e.preventDefault();
+            const id = document.getElementById('alumno-id').value;
+            const payload = {
+                nombre: document.getElementById('al-nombre').value,
+                apellido: document.getElementById('al-apellido').value,
+                fecha_nacimiento: document.getElementById('al-fecha').value,
+                grupo: document.getElementById('al-grupo').value,
+                id_curso: document.getElementById('al-curso').value
+            };
+            await enviarPeticion(id ? `/api/alumnos/${id}` : '/api/alumnos', id ? 'PUT' : 'POST', payload);
+            ocultarForm('form-alumno-card');
+        }
+
+        async function guardarCurso(e) {
+            e.preventDefault();
+            const id = document.getElementById('curso-id').value;
+            const payload = {
+                nombre: document.getElementById('cur-nombre').value,
+                dia: document.getElementById('cur-dia').value,
+                horario: document.getElementById('cur-horario').value,
+                id_profesor: document.getElementById('cur-profesor').value
+            };
+            await enviarPeticion(id ? `/api/cursos/${id}` : '/api/cursos', id ? 'PUT' : 'POST', payload);
+            ocultarForm('form-curso-card');
+        }
+
+        async function guardarProfesor(e) {
+            e.preventDefault();
+            const id = document.getElementById('prof-id').value;
+            const payload = {
+                nombre: document.getElementById('prof-nombre').value,
+                especialidad: document.getElementById('prof-especialidad').value
+            };
+            await enviarPeticion(id ? `/api/profesores/${id}` : '/api/profesores', id ? 'PUT' : 'POST', payload);
+            ocultarForm('form-profesor-card');
+        }
+
+        function prepararEditAlumno(id) {
+            const a = alumnosGlobal.find(item => item.id === id);
+            document.getElementById('alumno-id').value = a.id;
+            document.getElementById('al-nombre').value = a.nombre;
+            document.getElementById('al-apellido').value = a.apellido;
+            document.getElementById('al-grupo').value = a.grupo;
+            document.getElementById('al-curso').value = a.id_curso;
+            mostrarForm('form-alumno-card');
+        }
+
+        function prepararEditCurso(id) {
+            const c = cursosGlobal.find(item => item.id === id);
+            document.getElementById('curso-id').value = c.id;
+            document.getElementById('cur-nombre').value = c.nombre;
+            document.getElementById('cur-dia').value = c.dia;
+            document.getElementById('cur-horario').value = c.horario;
+            mostrarForm('form-curso-card');
+        }
+
+        function prepararEditProfesor(id) {
+            const p = profesoresGlobal.find(item => item.id === id);
+            document.getElementById('prof-id').value = p.id;
+            document.getElementById('prof-nombre').value = p.nombre;
+            document.getElementById('prof-especialidad').value = p.especialidad;
+            mostrarForm('form-profesor-card');
+        }
+
+        async function enviarPeticion(url, method, payload) {
+            await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            cargarDatosBD();
+        }
+
+        async function eliminarEntidad(urlBase, id) {
+            if (confirm(`¿Deseas eliminar este registro de la base de datos?`)) {
+                await fetch(`${urlBase}/${id}`, { method: 'DELETE' });
+                cargarDatosBD();
+            }
+        }
+
+        cargarDatosBD();
+    </script>
+</body>
+</html>

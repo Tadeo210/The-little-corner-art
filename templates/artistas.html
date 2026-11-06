@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artistas - The Little Corner of Art</title>
+    <link href="{{ url_for('static', filename='css/artistas.css')}}" rel="stylesheet">
+</head>
+<body>
+
+    <!-- BARRA DE MENÚ (IDENTICA A CURSOS) -->
+    <header>
+        <div class="logo">🎨 The Little Corner of Art</div>
+        <nav aria-label="Navegación principal">
+            <a href="/">Inicio</a>
+            <a href="/info">Información</a>
+            <a href="/cursos">Cursos</a>
+            <a href="/artistas">Artistas</a>
+        </nav>
+    </header>
+
+    <!-- PORTADA / HERO -->
+    <section class="portada">
+        <div class="fondo"></div>
+        <div class="titulo">
+            <h1>ARTISTAS</h1>
+            <p>Conoce la historia e inspiración de las grandes figuras del arte</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN SOBRE NOSOTROS -->
+    <section class="nosotros">
+        <h2>Sobre esta sección</h2>
+        <p>
+            Somos un equipo dedicado a la difusión cultural y artística. Aquí podrás explorar la trayectoria de tus artistas favoritos, sus frases más célebres y las obras icónicas que cambiaron la historia del arte.
+        </p>
+    </section>
+
+    <!-- SECCIÓN DE ARTISTAS (GRID DE TARJETAS) -->
+    <section class="artistas-seccion">
+        <h2>Grandes Maestros del Arte</h2>
+        
+        <div class="tarjetas-grid">
+
+            <!-- 1. FRIDA KAHLO -->
+            <article class="tarjeta-artista">
+                <div class="avatar-artista">F</div>
+                <h3>Frida Kahlo</h3>
+                <blockquote class="frase">"Pies, ¿para qué los quiero si tengo alas para volar?"</blockquote>
+                <a href="/frida" class="boton-tarjeta">Ver más</a>
+            </article>
+
+            <!-- 2. PABLO PICASSO -->
+            <article class="tarjeta-artista">
+                <div class="avatar-artista">P</div>
+                <h3>Pablo Picasso</h3>
+                <blockquote class="frase">"La inspiración existe, pero tiene que encontrarte trabajando."</blockquote>
+                <a href="/pablo" class="boton-tarjeta">Ver más</a>
+            </article>
+
+            <!-- 3. LEONARDO DA VINCI -->
+            <article class="tarjeta-artista">
+                <div class="avatar-artista">L</div>
+                <h3>Leonardo da Vinci</h3>
+                <blockquote class="frase">"Quien piensa poco, se equivoca mucho."</blockquote>
+                <a href="/davinci" class="boton-tarjeta">Ver más</a>
+            </article>
+
+            <!-- 4. MIGUEL ÁNGEL -->
+            <article class="tarjeta-artista">
+                <div class="avatar-artista">M</div>
+                <h3>Miguel Ángel</h3>
+                <blockquote class="frase">"El mayor peligro no es que nuestra meta sea demasiado alta, sino demasiado baja."</blockquote>
+                <a href="/miguel" class="boton-tarjeta">Ver más</a>
+            </article>
+
+            <!-- 5. VINCENT VAN GOGH -->
+            <article class="tarjeta-artista">
+                <div class="avatar-artista">V</div>
+                <h3>Vincent van Gogh</h3>
+                <blockquote class="frase">"Sueño con mi cuadro y luego pinto mi sueño."</blockquote>
+                <a href="/vangogh" class="boton-tarjeta">Ver más</a>
+            </article>
+
+            <!-- 6. CLAUDE MONET -->
+            <article class="tarjeta-artista">
+                <div class="avatar-artista">C</div>
+                <h3>Claude Monet</h3>
+                <blockquote class="frase">"El color es mi obsesión, mi alegría y mi tormento todo el día."</blockquote>
+                <a href="/claude" class="boton-tarjeta">Ver más</a>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <p>© 2026 The Little Corner of Art | Todos los derechos reservados</p>
+    </footer>
+
+</body>
+</html>

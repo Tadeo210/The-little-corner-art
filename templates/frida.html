@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frida Kahlo - Biografía y Obras</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/artistas2.css')}}">
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="logo">
+            Nuestra Pagina Web
+        </div>
+        <nav>
+            <!-- Enlace para volver a la página principal en la sección de artistas -->
+            <a href="/artistas">← Volver a Artistas</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="pagina-artista">
+        <!-- SECCIÓN BIOGRAFÍA -->
+        <section class="seccion-biografia">
+            <h1>Frida Kahlo</h1>
+            <div class="contenedor-bio">
+                <div class="bio-texto">
+                    <h2>Biografía</h2>
+                    <p>
+                        Magdalena Carmen Frida Kahlo Calderón (Coyoacán, 6 de julio de 1907-ibidem, 13 de julio de 1954) fue una pintora mexicana. Su vida estuvo marcada por el sufrimiento físico debido a un grave accidente en su juventud y diversas cirugías, lo cual la llevó a pasar largas temporadas postrada en cama.
+                    </p>
+                    <p>
+                        Esta condición influyó profundamente en su obra, la cual es célebre por sus autorretratos introspectivos, el uso de un colorido vibrante y la fuerte influencia del arte popular mexicano y las tradiciones indígenas. Estuvo casada con el célebre muralista Diego Rivera, una relación tan apasionada como tormentosa que marcó su vida personal y artística.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN OBRAS RECONOCIDAS -->
+        <section class="seccion-obras">
+            <h2>Pinturas Más Reconocidas</h2>
+            <div class="grid-obras">
+                <!-- Obra 1 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen1.jpg')}}" alt="Las dos Fridas">
+                    <div class="obra-info">
+                        <h3>Las dos Fridas (1939)</h3>
+                        <p>
+                            Uno de sus autorretratos más emblemáticos y de mayor formato. Representa a dos Fridas sentadas juntas: una con traje tradicional mexicano y el corazón intacto, y la otra con un vestido victoriano y el corazón roto, unidas ambas por una vena.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 2 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen2.jpg')}}" alt="Autorretrato con collar de espinas">
+                    <div class="obra-info">
+                        <h3>Autorretrato con collar de espinas (1940)</h3>
+                        <p>
+                            Una obra llena de simbolismo religioso y natural. Frida aparece con un collar de espinas que le lastima el cuello, un colibrí muerto colgado de él (símbolo de buena suerte en el amor) y rodeada por un mono y un gato negro.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 3 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen3.jpg')}}" alt="La columna rota">
+                    <div class="obra-info">
+                        <h3>La columna rota (1944)</h3>
+                        <p>
+                            Pintada poco después de una cirugía de columna. Muestra el cuerpo abierto de Frida revelando una columna jónica rota en lugar de su espina dorsal, mientras está cubierta de clavos y lágrimas, reflejando su constante dolor físico.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PAGINA -->
+    <footer>
+        <p>© 2026 Mi Pagina Web | Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>

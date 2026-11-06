@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Escultura - Cursos de Arte</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, Helvetica, sans-serif; background-color: #f7f7f7; color: #222; line-height: 1.6; }
+
+        .portada {
+            height: 240px;
+            position: relative;
+            background: linear-gradient(rgba(70, 90, 100, 0.65), rgba(70, 90, 100, 0.65)), url("https://images.unsplash.com/photo-1561839561-b13bcfe95249");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .portada h1 { font-size: 42px; letter-spacing: 2px; text-shadow: 2px 3px 5px #333; }
+        .portada p { font-size: 16px; margin-top: 8px; }
+
+        .contenedor { max-width: 950px; margin: -40px auto 50px; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.12); position: relative; z-index: 5; }
+
+        .titulo-seccion { color: #405d69; font-size: 22px; border-bottom: 2px solid #6b8793; padding-bottom: 6px; margin: 30px 0 15px; }
+
+        .caja-info { background: #f0f2f5; border-left: 4px solid #496b7b; padding: 18px; border-radius: 5px; color: #444; font-size: 15px; }
+
+        .profesor-tarjeta { display: flex; align-items: center; gap: 20px; background: #fdfdfd; border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; margin-top: 15px; }
+        .foto-profesor { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #b6cbd2, #607d88); display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: bold; }
+
+        .boton-interes { display: block; width: 100%; text-align: center; background-color: #222; color: white; font-size: 18px; font-weight: bold; padding: 15px; border-radius: 5px; text-decoration: none; margin: 30px 0; transition: background 0.3s; }
+        .boton-interes:hover { background-color: #405d69; }
+
+        /* MINIJUEGO ESCULTURA - TORNO DIGITAL */
+        .minijuego-panel { background: #f0f2f5; border: 1px solid #b6cbd2; padding: 25px; border-radius: 10px; text-align: center; margin-top: 35px; }
+        .minijuego-panel h3 { color: #405d69; font-size: 20px; margin-bottom: 8px; }
+
+        #canvasTorno { background: #ffffff; border: 2px solid #6b8793; border-radius: 8px; margin: 15px auto; display: block; }
+        .controles-torno { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .control-item { display: flex; flex-direction: column; align-items: center; font-size: 13px; font-weight: bold; color: #405d69; }
+
+        /* GALERÍA DE ALUMNOS */
+        .galeria-alumnos { margin-top: 50px; text-align: center; }
+        .galeria-alumnos h2 { color: #222; font-size: 24px; margin-bottom: 8px; }
+        .galeria-alumnos p { color: #666; font-size: 14px; margin-bottom: 30px; }
+
+        .grid-obras { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .tarjeta-obra { background: white; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 4px 10px rgba(0,0,0,0.06); text-align: left; }
+        .img-obra { height: 180px; background-size: cover; background-position: center; }
+        .info-obra { padding: 15px; }
+        .info-obra h4 { font-size: 16px; color: #222; margin-bottom: 4px; }
+        .autor-obra { font-size: 13px; color: #405d69; font-weight: bold; margin-bottom: 6px; }
+        .comentario-obra { font-size: 12px; color: #666; font-style: italic; }
+
+        .btn-volver { display: inline-block; margin-top: 30px; color: #666; text-decoration: none; font-size: 14px; }
+        .btn-volver:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <header class="portada">
+        <div>
+            <h1>🗿 Curso de Escultura</h1>
+            <p>Descubre el arte tridimensional, el modelado y la construcción del volumen</p>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        <h2 class="titulo-seccion">¿Qué es la Escultura?</h2>
+        <div class="caja-info">
+            La escultura es la manifestación artística tridimensional que modela o talla materiales físicos como arcilla, barro, madera o piedra para crear obras con volumen tangible en el espacio.
+        </div>
+
+        <h2 class="section-title titulo-seccion">¿Qué aprenderás en este curso?</h2>
+        <ul style="margin-left: 20px; color: #555; font-size: 14px; line-height: 1.8;">
+            <li>Modelado en plastilina epóxica, barro y arcilla.</li>
+            <li>Construcción de estructuras y armazones de alambre internos.</li>
+            <li>Técnicas de vaciado y elaboración de moldes.</li>
+            <li>Texturización, pulido y acabados con pátinas.</li>
+        </ul>
+
+        <h2 class="titulo-seccion">¿Quién impartirá este curso?</h2>
+        <div class="profesor-tarjeta">
+            <div class="foto-profesor">D</div>
+            <div>
+                <h3 style="font-size: 16px; color: #222;">Danán Longo</h3>
+                <p style="font-size: 13px; color: #405d69; font-weight: bold;">Especialidad: Escultura Tradicional y Modelado</p>
+                <p style="font-size: 13px; color: #666; margin-top: 4px;">Escultor reconocido profesionalmente con exposiciones centradas en la figura humana y la cerámica.</p>
+            </div>
+        </div>
+
+        <a href="/registro" class="boton-interes">¡ME INTERESA ESTE CURSO! 🚀</a>
+
+        <!-- MINIJUEGO ESCULTURA INTERACTIVO -->
+        <section class="minijuego-panel">
+            <h3>🎮 Torno Digital: Esculpe tu Vasija de Cerámica</h3>
+            <p style="font-size: 13px; color: #666;">Ajusta los deslizadores para dar forma al cuello y la base de la pieza de barro mientras gira en el torno.</p>
+
+            <canvas id="canvasTorno" width="360" height="230"></canvas>
+
+            <div class="controles-torno">
+                <div class="control-item">
+                    <label>Ancho del Cuello</label>
+                    <input type="range" id="cuelloInput" min="20" max="80" value="45" oninput="dibujarTorno()">
+                </div>
+                <div class="control-item">
+                    <label>Cuerpo / Base</label>
+                    <input type="range" id="cuerpoInput" min="30" max="100" value="75" oninput="dibujarTorno()">
+                </div>
+            </div>
+        </section>
+
+        <!-- GALERÍA DE ALUMNOS -->
+        <section class="galeria-alumnos">
+            <h2>Esculturas Moldeadas por Alumnos</h2>
+            <p>Piezas tridimensionales moldeadas totalmente a mano durante las sesiones de clase.</p>
+
+            <div class="grid-obras">
+                <div class="tarjeta-obra">
+                    <div class="img-obra" style="background-image: url('https://images.unsplash.com/photo-1561839561-b13bcfe95249');"></div>
+                    <div class="info-obra">
+                        <h4>"Busto en Barro Horneado"</h4>
+                        <div class="autor-obra">Por: Mateo Villalba</div>
+                        <p class="comentario-obra">"Crear el armazón de alambre me permitió sostener la figura sin deformar la arcilla."</p>
+                    </div>
+                </div>
+                <div class="tarjeta-obra">
+                    <div class="img-obra" style="background-image: url('https://images.unsplash.com/photo-1544717305-2782549b5136');"></div>
+                    <div class="info-obra">
+                        <h4>"Vasija Orgánica"</h4>
+                        <div class="autor-obra">Por: Natalia Paredes</div>
+                        <p class="comentario-obra">"El pulido final con pátinas metálicas le dio un acabado profesional de galería."</p>
+                    </div>
+                </div>
+                <div class="tarjeta-obra">
+                    <div class="img-obra" style="background-image: url('https://images.unsplash.com/photo-1531913764164-f85c52e6e654');"></div>
+                    <div class="info-obra">
+                        <h4>"Relieve Abstracto"</h4>
+                        <div class="autor-obra">Por: Rodrigo Sotomayor</div>
+                        <p class="comentario-obra">"Aprender a hacer moldes de silicona facilitó reproducir mis esculturas fácilmente."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <a href="/cursos" class="btn-volver">← Volver a la página principal</a>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('canvasTorno');
+        const ctx = canvas.getContext('2d');
+
+        function dibujarTorno() {
+            const cuello = parseInt(document.getElementById('cuelloInput').value);
+            const cuerpo = parseInt(document.getElementById('cuerpoInput').value);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Base del torno
+            ctx.fillStyle = '#b6cbd2';
+            ctx.beginPath();
+            ctx.ellipse(180, 200, 100, 18, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Vasija moldeada
+            const grad = ctx.createLinearGradient(180 - cuerpo, 0, 180 + cuerpo, 0);
+            grad.addColorStop(0, '#405d69');
+            grad.addColorStop(0.5, '#607d88');
+            grad.addColorStop(1, '#222222');
+
+            ctx.beginPath();
+            ctx.fillStyle = grad;
+            ctx.moveTo(180 - cuello, 50);
+            ctx.bezierCurveTo(180 - cuerpo - 15, 110, 180 - cuerpo, 160, 180 - 25, 190);
+            ctx.lineTo(180 + 25, 190);
+            ctx.bezierCurveTo(180 + cuerpo, 160, 180 + cuerpo + 15, 110, 180 + cuello, 50);
+            ctx.closePath();
+            ctx.fill();
+
+            // Boca de la vasija
+            ctx.beginPath();
+            ctx.fillStyle = '#222';
+            ctx.ellipse(180, 50, cuello, 8, 0, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        dibujarTorno();
+    </script>
+</body>
+</html>

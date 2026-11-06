@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Pintura - Cursos de Arte</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, Helvetica, sans-serif; background-color: #f7f7f7; color: #222; line-height: 1.6; }
+
+        /* PORTADA */
+        .portada {
+            height: 240px;
+            position: relative;
+            background: linear-gradient(rgba(70, 90, 100, 0.65), rgba(70, 90, 100, 0.65)), url("https://images.unsplash.com/photo-1547891654-e66ed7ebb968");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .portada h1 { font-size: 42px; letter-spacing: 2px; text-shadow: 2px 3px 5px #333; }
+        .portada p { font-size: 16px; margin-top: 8px; }
+
+        .contenedor { max-width: 950px; margin: -40px auto 50px; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.12); position: relative; z-index: 5; }
+
+        .titulo-seccion { color: #405d69; font-size: 22px; border-bottom: 2px solid #6b8793; padding-bottom: 6px; margin: 30px 0 15px; }
+
+        .caja-info { background: #f0f2f5; border-left: 4px solid #496b7b; padding: 18px; border-radius: 5px; color: #444; font-size: 15px; }
+
+        /* PROFESOR */
+        .profesor-tarjeta { display: flex; align-items: center; gap: 20px; background: #fdfdfd; border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; margin-top: 15px; }
+        .foto-profesor { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #b6cbd2, #607d88); display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: bold; }
+
+        /* BOTÓN ME INTERESA */
+        .boton-interes { display: block; width: 100%; text-align: center; background-color: #222; color: white; font-size: 18px; font-weight: bold; padding: 15px; border-radius: 5px; text-decoration: none; margin: 30px 0; transition: background 0.3s; }
+        .boton-interes:hover { background-color: #405d69; }
+
+        /* MINIJUEGO PINTURA */
+        .minijuego-panel { background: #f0f2f5; border: 1px solid #b6cbd2; padding: 25px; border-radius: 10px; text-align: center; margin-top: 35px; }
+        .minijuego-panel h3 { color: #405d69; font-size: 20px; margin-bottom: 8px; }
+
+        .herramientas-pintura { display: flex; justify-content: center; gap: 15px; margin: 15px 0; flex-wrap: wrap; align-items: center; background: white; padding: 12px; border-radius: 8px; border: 1px solid #ddd; }
+        .herramientas-pintura label { font-size: 13px; font-weight: bold; color: #555; }
+        .btn-pincel { padding: 6px 12px; border: 1px solid #6b8793; background: white; color: #405d69; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.2s; }
+        .btn-pincel.activo { background: #496b7b; color: white; }
+
+        #lienzoPintura { background: white; border: 2px dashed #b6cbd2; border-radius: 6px; cursor: crosshair; touch-action: none; margin-top: 10px; }
+
+        .btn-evaluar { margin-top: 15px; padding: 10px 22px; background-color: #496b7b; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-evaluar:hover { background-color: #385360; }
+
+        /* GALERÍA DE ALUMNOS */
+        .galeria-alumnos { margin-top: 50px; text-align: center; }
+        .galeria-alumnos h2 { color: #222; font-size: 24px; margin-bottom: 8px; }
+        .galeria-alumnos p { color: #666; font-size: 14px; margin-bottom: 30px; }
+
+        .grid-obras { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .tarjeta-obra { background: white; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 4px 10px rgba(0,0,0,0.06); text-align: left; }
+        .img-obra { height: 180px; background-size: cover; background-position: center; }
+        .info-obra { padding: 15px; }
+        .info-obra h4 { font-size: 16px; color: #222; margin-bottom: 4px; }
+        .autor-obra { font-size: 13px; color: #405d69; font-weight: bold; margin-bottom: 6px; }
+        .comentario-obra { font-size: 12px; color: #666; font-style: italic; }
+
+        .btn-volver { display: inline-block; margin-top: 30px; color: #666; text-decoration: none; font-size: 14px; }
+        .btn-volver:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <header class="portada">
+        <div>
+            <h1>🎨 Curso de Pintura</h1>
+            <p>Aprende técnicas, teoría del color y composición pictórica</p>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        <h2 class="titulo-seccion">¿Qué es la Pintura?</h2>
+        <div class="caja-info">
+            La pintura es el arte de la representación gráfica utilizando pigmentos mezclados con aglutinantes. En este curso aprenderás a controlar la luz, el volumen y las combinaciones cromáticas para transmitir ideas y emociones sobre el lienzo.
+        </div>
+
+        <h2 class="titulo-seccion">¿Qué aprenderás en este curso?</h2>
+        <ul style="margin-left: 20px; color: #555; font-size: 14px; line-height: 1.8;">
+            <li>Dominio de la teoría del color y armonía cromática.</li>
+            <li>Técnicas en acrílico, óleo y acuarela.</li>
+            <li>Pinceladas de textura, empasto y veladuras.</li>
+            <li>Creación de composiciones artísticas desde bocetos previos.</li>
+        </ul>
+
+        <h2 class="titulo-seccion">¿Quién impartirá este curso?</h2>
+        <div class="profesor-tarjeta">
+            <div class="foto-profesor">D</div>
+            <div>
+                <h3 style="font-size: 16px; color: #222;">Dabrid Sammon</h3>
+                <p style="font-size: 13px; color: #405d69; font-weight: bold;">Especialidad: Pintura al Óleo y Acrílico</p>
+                <p style="font-size: 13px; color: #666; margin-top: 4px;">Maestro en Bellas Artes con amplia experiencia en exposiciones pictóricas y formación artística.</p>
+            </div>
+        </div>
+
+        <a href="/registro" class="boton-interes">¡ME INTERESA ESTE CURSO! 🚀</a>
+
+        <!-- MINIJUEGO PINTURA INTERACTIVO -->
+        <section class="minijuego-panel">
+            <h3>🎮 Taller Virtual: Modos de Pincel y Evaluación de Arte</h3>
+            <p style="font-size: 13px; color: #666;">Selecciona una plantilla o dibuja libremente cambiando el tipo de pincel (Óleo, Acuarela o Spray). Al finalizar, presiona "Evaluar Mi Obra".</p>
+
+            <div class="herramientas-pintura">
+                <div>
+                    <label>Plantilla:</label>
+                    <select id="plantillaSelect" onchange="cargarPlantilla()" style="padding:4px; font-size:12px;">
+                        <option value="libre">Lienzo en Blanco</option>
+                        <option value="paisaje">Boceto: Paisaje</option>
+                        <option value="bodegon">Boceto: Bodegón</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Pincel:</label>
+                    <button class="btn-pincel activo" onclick="setModo('oleo')" id="btnOleo">Óleo</button>
+                    <button class="btn-pincel" onclick="setModo('acuarela')" id="btnAcuarela">Acuarela</button>
+                    <button class="btn-pincel" onclick="setModo('spray')" id="btnSpray">Spray</button>
+                </div>
+                <div>
+                    <label>Color:</label>
+                    <input type="color" id="colorPicker" value="#496b7b">
+                </div>
+                <div>
+                    <label>Grosor:</label>
+                    <input type="range" id="grosorPincel" min="3" max="30" value="12">
+                </div>
+                <button class="btn-pincel" onclick="limpiarLienzo()">Limpiar</button>
+            </div>
+
+            <canvas id="lienzoPintura" width="600" height="300"></canvas>
+            <br>
+            <button class="btn-evaluar" onclick="evaluarObra()">Evaluar Mi Obra 🖌️</button>
+            <div id="resultadoEvaluacion" style="margin-top: 12px; font-weight: bold; color: #405d69; font-size: 14px;"></div>
+        </section>
+
+        <!-- GALERÍA DE OBRAS DE ALUMNOS -->
+        <section class="galeria-alumnos">
+            <h2>Obras Realizadas por Nuestros Alumnos</h2>
+            <p>Proyectos creados por estudiantes que iniciaron desde cero en este curso.</p>
+
+            <div class="grid-obras">
+                <div class="tarjeta-obra">
+                    <div class="img-obra" style="background-image: url('https://images.unsplash.com/photo-1579783900882-c0d3dad7b119');"></div>
+                    <div class="info-obra">
+                        <h4>"Atardecer en la Cuesta"</h4>
+                        <div class="autor-obra">Por: Valeria Mendoza</div>
+                        <p class="comentario-obra">"Logré dominar las mezclas al óleo gracias a las explicaciones paso a paso del maestro."</p>
+                    </div>
+                </div>
+                <div class="tarjeta-obra">
+                    <div class="img-obra" style="background-image: url('https://images.unsplash.com/photo-1541701494587-cb58502866ab');"></div>
+                    <div class="info-obra">
+                        <h4>"Armonía Botánica"</h4>
+                        <div class="autor-obra">Por: Carlos Eduardo R.</div>
+                        <p class="comentario-obra">"El módulo de veladuras de acrílico cambió la forma en la que le doy sombra a mis obras."</p>
+                    </div>
+                </div>
+                <div class="tarjeta-obra">
+                    <div class="img-obra" style="background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b675');"></div>
+                    <div class="info-obra">
+                        <h4>"Reflejos de Luz"</h4>
+                        <div class="autor-obra">Por: Sofía Alarcón</div>
+                        <p class="comentario-obra">"Aprender a pintar transparencias en acuarela fue una experiencia increíble."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <a href="/cursos" class="btn-volver">← Volver a la página principal</a>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('lienzoPintura');
+        const ctx = canvas.getContext('2d');
+        let pintando = false;
+        let modoPincel = 'oleo';
+
+        function setModo(modo) {
+            modoPincel = modo;
+            document.querySelectorAll('.btn-pincel').forEach(b => b.classList.remove('activo'));
+            if(modo === 'oleo') document.getElementById('btnOleo').classList.add('activo');
+            if(modo === 'acuarela') document.getElementById('btnAcuarela').classList.add('activo');
+            if(modo === 'spray') document.getElementById('btnSpray').classList.add('activo');
+        }
+
+        function cargarPlantilla() {
+            limpiarLienzo();
+            const val = document.getElementById('plantillaSelect').value;
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 2;
+            ctx.globalAlpha = 1.0;
+
+            if(val === 'paisaje') {
+                ctx.beginPath();
+                ctx.arc(450, 80, 30, 0, Math.PI * 2); // Sol
+                ctx.moveTo(0, 220); ctx.lineTo(200, 140); ctx.lineTo(400, 220); // Montaña 1
+                ctx.moveTo(250, 220); ctx.lineTo(450, 120); ctx.lineTo(600, 220); // Montaña 2
+                ctx.stroke();
+            } else if(val === 'bodegon') {
+                ctx.beginPath();
+                ctx.arc(300, 180, 45, 0, Math.PI * 2); // Manzana
+                ctx.ellipse(220, 190, 30, 40, 0, 0, Math.PI * 2); // Pera
+                ctx.stroke();
+            }
+        }
+
+        function limpiarLienzo() { 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            document.getElementById('resultadoEvaluacion').innerHTML = '';
+        }
+
+        canvas.addEventListener('mousedown', (e) => { 
+            pintando = true; 
+            ctx.beginPath();
+            pintar(e);
+        });
+        canvas.addEventListener('mouseup', () => { 
+            pintando = false; 
+            ctx.beginPath(); 
+        });
+        canvas.addEventListener('mousemove', pintar);
+
+        function pintar(e) {
+            if(!pintando) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const color = document.getElementById('colorPicker').value;
+            const grosor = document.getElementById('grosorPincel').value;
+
+            if(modoPincel === 'oleo') {
+                ctx.lineWidth = grosor;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = color;
+                ctx.globalAlpha = 1.0;
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            } else if(modoPincel === 'acuarela') {
+                ctx.lineWidth = grosor * 1.5;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = color;
+                ctx.globalAlpha = 0.15; // Trazo traslúcido acuarelable
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            } else if(modoPincel === 'spray') {
+                ctx.globalAlpha = 0.6;
+                ctx.fillStyle = color;
+                for (let i = 0; i < 15; i++) {
+                    const offsetX = (Math.random() - 0.5) * grosor * 2;
+                    const offsetY = (Math.random() - 0.5) * grosor * 2;
+                    ctx.fillRect(x + offsetX, y + offsetY, 2, 2);
+                }
+            }
+        }
+
+        function evaluarObra() {
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+            let pixelesPintados = 0;
+            for(let i = 3; i < imgData.length; i += 4) {
+                if(imgData[i] > 0) pixelesPintados++;
+            }
+            const porcentaje = Math.min(100, Math.round((pixelesPintados / (canvas.width * canvas.height)) * 100 * 3));
+            
+            const res = document.getElementById('resultadoEvaluacion');
+            if(porcentaje < 10) {
+                res.innerHTML = "🎨 Cobertura: " + porcentaje + "% - <em>¡Comienza a dar tus primeros trazos de color!</em>";
+            } else if(porcentaje < 40) {
+                res.innerHTML = "🎨 Cobertura: " + porcentaje + "% - <em>¡Buen manejo cromático! Estás construyendo excelente volumen.</em>";
+            } else {
+                res.innerHTML = "🏆 Cobertura: " + porcentaje + "% - <em>¡Obra Maestra! Gran riqueza cromática y balance compositivo.</em>";
+            }
+        }
+    </script>
+</body>
+</html>

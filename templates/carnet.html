@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnet Digital de Alumno</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inicio.css')}}">
+    <style>
+        .carnet-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #ffffff;
+            border: 1px solid #d1dde2;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+        }
+
+        .carnet-header {
+            text-align: center;
+            border-bottom: 2px solid #496b7b;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .carnet-header h2 {
+            color: #222;
+            font-size: 24px;
+        }
+
+        .badge-id {
+            background-color: #496b7b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        .tabla-carnet {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .tabla-carnet th, .tabla-carnet td {
+            padding: 12px 15px;
+            border: 1px solid #eef2f4;
+            font-size: 14px;
+        }
+
+        .tabla-carnet th {
+            background-color: #f7f9fa;
+            color: #496b7b;
+            text-align: left;
+            width: 35%;
+            font-weight: 600;
+        }
+
+        .tabla-carnet td {
+            color: #333;
+        }
+
+        .msg-error {
+            text-align: center;
+            color: #d94b62;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🎨 Carnet Digital de Estudiante</div>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/cursos">Cursos</a>
+        </nav>
+    </header>
+
+    <div class="carnet-container">
+        {% if alumno %}
+            <div class="carnet-header">
+                <h2>{{ alumno.nombre }} {{ alumno.apellido }}</h2>
+                <span class="badge-id">ID Alumno: #{{ alumno.id }}</span>
+            </div>
+
+            <table class="tabla-carnet">
+                <tr>
+                    <th>Grupo</th>
+                    <td>{{ alumno.grupo }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha Nacimiento</th>
+                    <td>{{ alumno.fecha_nacimiento }}</td>
+                </tr>
+                <tr>
+                    <th>Curso / Materia</th>
+                    <td><strong>{{ alumno.curso }}</strong></td>
+                </tr>
+                <tr>
+                    <th>Día de Clase</th>
+                    <td>{{ alumno.dia }}</td>
+                </tr>
+                <tr>
+                    <th>Horario</th>
+                    <td>{{ alumno.horario }}</td>
+                </tr>
+                <tr>
+                    <th>Profesor</th>
+                    <td>{{ alumno.profesor }}</td>
+                </tr>
+            </table>
+        {% else %}
+            <div class="msg-error">
+                <h3>⚠️ Alumno No Encontrado</h3>
+                <p>El ID de alumno #{{ id_buscado }} no existe en el sistema.</p>
+            </div>
+        {% endif %}
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/" class="button">← Volver al Inicio</a>
+        </div>
+    </div>
+
+</body>
+</html>

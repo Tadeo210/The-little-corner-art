@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Alumnos - Cursos de Arte</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .contenedor-registro {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .contenedor-registro h2 {
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .contenedor-registro p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .campo-formulario {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .campo-formulario label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        .campo-formulario input, .campo-formulario select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .campo-formulario input:focus, .campo-formulario select:focus {
+            border-color: #496b7b;
+        }
+
+        .boton-enviar-registro {
+            width: 100%;
+            padding: 12px;
+            background-color: #222;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .boton-enviar-registro:hover {
+            background-color: #405d69;
+        }
+
+        .mensaje-respuesta {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            display: none;
+            font-weight: bold;
+        }
+
+        .mensaje-exito {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .mensaje-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .btn-volver {
+            display: inline-block;
+            margin-top: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor-registro">
+        <h2>Panel de Registro de Alumnos</h2>
+        <p>Ingresa tus datos personales para completar tu registro.</p>
+
+        <form id="form-registro">
+
+            <div class="campo-formulario">
+                <label for="nombres">Nombre(s):</label>
+                <input type="text" id="nombres" name="nombre" required maxlength="50" placeholder="Ej. María Fernanda">
+            </div>
+
+            <div class="campo-formulario">
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" id="apellidos" name="apellido" required maxlength="50" placeholder="Ej. Gómez Pérez">
+            </div>
+
+            <div class="campo-formulario">
+                <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
+                <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" required>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="grupo">Grupo:</label>
+                <input type="text" id="grupo" name="grupo" required maxlength="50" placeholder="Ej. 101 o 102">
+            </div>
+
+            <div class="campo-formulario">
+                <label for="id_curso">Selecciona tu Curso:</label>
+                <select id="id_curso" name="id_curso" required>
+                    <option value="1">Acuarela (Lunes 18:00 - 20:00)</option>
+                    <option value="2">Acuarela (Martes 15:00 - 17:00)</option>
+                    <option value="3">Ilustración Digital (Miércoles 16:00 - 18:00)</option>
+                    <option value="4">Pintura (Jueves 16:00 - 18:00)</option>
+                    <option value="5">Escultura (Viernes 10:00 - 13:00)</option>
+                </select>
+            </div>
+
+            <button type="submit" id="boton-registro" class="boton-enviar-registro">Completar Registro</button>
+
+        </form>
+
+        <div id="mensaje" class="mensaje-respuesta"></div>
+
+        <a href="/cursos" class="btn-volver">← Volver a Cursos</a>
+    </div>
+
+    <script>
+        const formulario = document.getElementById('form-registro');
+        const contenedorMensaje = document.getElementById('mensaje');
+        const botonRegistro = document.getElementById('boton-registro');
+
+        formulario.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            contenedorMensaje.style.display = 'none';
+            botonRegistro.disabled = true;
+            botonRegistro.textContent = 'Guardando registro...';
+
+            try {
+                const respuesta = await fetch('/registrar', {
+                    method: 'POST',
+                    body: new FormData(formulario)
+                });
+
+                const data = await respuesta.json();
+
+                contenedorMensaje.style.display = 'block';
+
+                if (respuesta.ok && data.status === 'success') {
+                    contenedorMensaje.className = 'mensaje-respuesta mensaje-exito';
+                    contenedorMensaje.innerHTML = `¡Registro Exitoso!<br>Tu ID asignado es: <strong>#${data.id_alumno}</strong>`;
+                    formulario.reset();
+                } else {
+                    contenedorMensaje.className = 'mensaje-respuesta mensaje-error';
+                    contenedorMensaje.textContent = data.message || 'No se pudo guardar el registro.';
+                }
+
+            } catch (error) {
+                contenedorMensaje.style.display = 'block';
+                contenedorMensaje.className = 'mensaje-respuesta mensaje-error';
+                contenedorMensaje.textContent = 'No se pudo conectar con el servidor.';
+            } finally {
+                botonRegistro.disabled = false;
+                botonRegistro.textContent = 'Completar Registro';
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Dibujo - Cursos de Arte</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, Helvetica, sans-serif; background-color: #f7f7f7; color: #222; line-height: 1.6; }
+
+        .portada {
+            height: 240px;
+            position: relative;
+            background: linear-gradient(rgba(70, 90, 100, 0.65), rgba(70, 90, 100, 0.65)), url("https://images.unsplash.com/photo-1513364776144-60967b0f800f");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .portada h1 { font-size: 42px; letter-spacing: 2px; text-shadow: 2px 3px 5px #333; }
+        .portada p { font-size: 16px; margin-top: 8px; }
+
+        .contenedor { max-width: 950px; margin: -40px auto 50px; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.12); position: relative; z-index: 5; }
+
+        .titulo-seccion { color: #405d69; font-size: 22px; border-bottom: 2px solid #6b8793; padding-bottom: 6px; margin: 30px 0 15px; }
+
+        .caja-info { background: #f0f2f5; border-left: 4px solid #496b7b; padding: 18px; border-radius: 5px; color: #444; font-size: 15px; }
+
+        .boton-interes { display: block; width: 100%; text-align: center; background-color: #222; color: white; font-size: 18px; font-weight: bold; padding: 15px; border-radius: 5px; text-decoration: none; margin: 30px 0; transition: background 0.3s; }
+        .boton-interes:hover { background-color: #405d69; }
+
+        /* MINIJUEGO DIBUJO - PULSO Y PRECISIÓN */
+        .minijuego-panel { background: #f0f2f5; border: 1px solid #b6cbd2; padding: 25px; border-radius: 10px; text-align: center; margin-top: 35px; }
+        .minijuego-panel h3 { color: #405d69; font-size: 20px; margin-bottom: 8px; }
+
+        #lienzoDibujo { background: white; border: 2px solid #6b8793; border-radius: 6px; cursor: crosshair; touch-action: none; margin-top: 15px; }
+
+        .panel-score { margin-top: 12px; font-weight: bold; font-size: 16px; color: #222; }
+
+        /* GALERÍA DE ALUMNOS */
+        .galeria-alumnos { margin-top: 50px; text-align: center; }
+        .galeria-alumnos h2 { color: #222; font-size: 24px; margin-bottom: 8px; }
+        .galeria-alumnos p { color: #666; font-size: 14px; margin-bottom: 30px; }
+
+        .grid-obras { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .tarjeta-obra { background: white; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 4px 10px rgba(0,0,0,0.06); text-align: left; }
+        .img-obra { height: 180px; background-size: cover; background-position: center; }
+        .info-obra { padding: 15px; }
+        .info-obra h4 { font-size: 16px; color: #222; margin-bottom: 4px; }
+        .autor-obra { font-size: 13px; color: #405d69; font-weight: bold; margin-bottom: 6px; }
+        .comentario-obra { font-size: 12px; color: #666; font-style: italic; }
+
+        .btn-volver { display: inline-block; margin-top: 30px; color: #666; text-decoration: none; font-size: 14px; }
+        .btn-volver:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <header class="portada">
+        <div>
+            <h1>✏️ Curso de Dibujo</h1>
+            <p>Aprende las bases de la proporción, la línea y el claroscuro</p>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        <h2 class="titulo-seccion">¿Qué es el Dibujo?</h2>
+        <div class="caja-info">
+            El dibujo es la disciplina primaria del arte visual que utiliza líneas y sombras sobre un soporte para delinear formas, estructurar perspectivas y plasmar volumen. Es el cimiento esencial para cualquier otra manifestación artística.
+        </div>
+
+        <h2 class="titulo-seccion">¿Qué aprenderás en este curso?</h2>
+        <ul style="margin-left: 20px; color: #555; font-size: 14px; line-height: 1.8;">
+            <li>Control de trazo, firmo de pulso y caligrafía visual.</li>
+            <li>Bocetaje anatómico y proporciones del cuerpo humano.</li>
+            <li>Perspectiva de 1 y 2 puntos de fuga para arquitectura.</li>
+            <li>Sombras con achurado, grafito y carboncillo.</li>
+        </ul>
+
+        <h2 class="titulo-seccion">¿Quién impartirá este curso?</h2>
+        <div style="background: #fdfdfd; border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; margin-top: 15px;">
+            <h3 style="font-size: 16px; color: #222;">Equipo de Dibujantes e Ilustradores</h3>
+            <p style="font-size: 13px; color: #405d69; font-weight: bold;">Especialistas en Boceto Conceptual e Ilustración Tradicional</p>
+            <p style="font-size: 13px; color: #666; margin-top: 4px;">Docentes enfocados en mejorar la firmeza del trazo y la visión espacial del alumno.</p>
+        </div>
+
+        <a href="/registro" class="boton-interes">¡ME INTERESA ESTE CURSO! 🚀</a>
+
+        <!-- MINIJUEGO DIBUJO INTERACTIVO -->
+        <section class="minijuego-panel">
+            <h3>🎮 Reto de Pulso y Calco de Precisión</h3>
+            <p style="font-size: 13px; color: #666;">Calca la figura guía guía (línea punteada) desde el punto verde sin salirte del trayecto para medir tu precisión de trazo.</p>
+
+            <canvas id="lienzoDibujo" width="550" height="260"></canvas>
+
+            <div class="panel-score">
+                <span id="txtPrecision">Precisión de Trazo: 0%</span> | 
+                <span id="txtEstrellas">Calificación: -</span>
+            </div>
+            <button onclick="reiniciarJuegoDibujo()" style="margin-top:10px; padding:8px 18px; background:#496b7b; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">Reiniciar Reto ✏️</button>
+        </section>
+
+        <!-- GALERÍA DE ALUMNOS -->
+        <section class="galeria-alumnos">
+            <h2>Bocetos Realizados por Nuestros Alumnos</h2>
+            <p>Ejemplos de trabajos desarrollados durante el taller de dibujo técnico y artístico.</p>
+
+            <div class="grid-obras">
+                <div class="tarjeta-obra">
+                    <div class="img-obra" style="background-image: url('https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b');"></div>
+                    <div class="info-obra">
+                        <h4>"Estudio de Expresión Facial"</h4>
+                        <div class="autor-obra">Por: Gabriel Aranda</div>
+                        <p class="comentario-obra">"Logré dominar las sombras en grafito gradualmente gracias al método de la rejilla."</p>
+                    </div>
+                </div>
+                <div class="tarjeta-obra">
+                    <div class="img-obra" style="background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f');"></div>
+                    <div class="info-obra">
+                        <h4>"Perspectiva Urbana"</h4>
+                        <div class="autor-obra">Por: Andrea L. Ruiz</div>
+                        <p class="comentario-obra">"La perspectiva con 2 puntos de fuga era confusa hasta que practicamos con estos ejercicios."</p>
+                    </div>
+                </div>
+                <div class="tarjeta-obra">
+                    <div class="img-obra" style="background-image: url('https://images.unsplash.com/photo-1582561817343-be63e3d93962');"></div>
+                    <div class="info-obra">
+                        <h4>"Claroscuro a Carboncillo"</h4>
+                        <div class="autor-obra">Por: Fernando Tadeo</div>
+                        <p class="comentario-obra">"El volumen tridimensional que alcanzamos en el módulo final es impresionante."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <a href="/cursos" class="btn-volver">← Volver a la página principal</a>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('lienzoDibujo');
+        const ctx = canvas.getContext('2d');
+        let dibujando = false;
+        let aciertos = 0;
+        let totalIntentos = 0;
+
+        // Trayecto objetivo de prueba (Una espiral suave)
+        const caminoGuia = [];
+        for(let t = 0; t < Math.PI * 4; t += 0.08) {
+            const r = 20 + t * 12;
+            caminoGuia.push({
+                x: 275 + r * Math.cos(t),
+                y: 130 + r * Math.sin(t)
+            });
+        }
+
+        function dibujarGuia() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Dibujar línea guía punteada
+            ctx.beginPath();
+            ctx.setLineDash([5, 5]);
+            ctx.strokeStyle = '#b6cbd2';
+            ctx.lineWidth = 14;
+            ctx.moveTo(caminoGuia[0].x, caminoGuia[0].y);
+            for(let i = 1; i < caminoGuia.length; i++) {
+                ctx.lineTo(caminoGuia[i].x, caminoGuia[i].y);
+            }
+            ctx.stroke();
+
+            // Dibujar punto de inicio
+            ctx.setLineDash([]);
+            ctx.beginPath();
+            ctx.arc(caminoGuia[0].x, caminoGuia[0].y, 10, 0, Math.PI*2);
+            ctx.fillStyle = '#2ed573';
+            ctx.fill();
+        }
+
+        canvas.addEventListener('mousedown', (e) => { dibujando = true; });
+        canvas.addEventListener('mouseup', () => { dibujando = false; ctx.beginPath(); });
+        canvas.addEventListener('mousemove', (e) => {
+            if(!dibujando) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = '#405d69';
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+
+            // Verificar cercanía a la guía
+            let cerca = caminoGuia.some(p => Math.hypot(p.x - x, p.y - y) < 15);
+            totalIntentos++;
+            if(cerca) aciertos++;
+
+            const prec = Math.round((aciertos / totalIntentos) * 100);
+            document.getElementById('txtPrecision').innerText = `Precisión de Trazo: ${prec}%`;
+
+            if(prec > 85) document.getElementById('txtEstrellas').innerText = "Calificación: ⭐⭐⭐⭐⭐ (Excelente Pulso)";
+            else if(prec > 60) document.getElementById('txtEstrellas').innerText = "Calificación: ⭐⭐⭐ (Buen Pulso)";
+            else document.getElementById('txtEstrellas').innerText = "Calificación: ⭐ (Practica más la firmeza)";
+        });
+
+        function reiniciarJuegoDibujo() {
+            aciertos = 0;
+            totalIntentos = 0;
+            document.getElementById('txtPrecision').innerText = `Precisión de Trazo: 0%`;
+            document.getElementById('txtEstrellas').innerText = `Calificación: -`;
+            dibujarGuia();
+        }
+
+        dibujarGuia();
+    </script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripción a Clases en Vivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 10px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #496b7b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #385360;
+        }
+
+        .horario-resultado {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+        }
+
+        .mensaje-exito {
+            text-align: center;
+            color: #2b572b;
+            background-color: #eef7ee;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .mensaje-error {
+            text-align: center;
+            color: #721c24;
+            background-color: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tabla-horario {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .tabla-horario th, .tabla-horario td {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .tabla-horario th {
+            background-color: #496b7b;
+            color: white;
+        }
+
+        .btn-volver {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Consulta de Clases en Vivo 🎨</h2>
+        
+        <form id="form-vivo">
+            <div class="campo">
+                <label for="id_alumno">ID de Alumno:</label>
+                <input type="number" id="id_alumno" name="id_alumno" required placeholder="Ej. 1">
+            </div>
+
+            <div class="campo">
+                <label for="curso">Selecciona la Materia a Consultar:</label>
+                <select id="curso" name="curso" required>
+                    <option value="">-- Selecciona un curso --</option>
+                    <option value="Acuarela">Acuarela</option>
+                    <option value="Ilustración Digital">Ilustración Digital</option>
+                    <option value="Pintura">Pintura</option>
+                    <option value="Escultura">Escultura</option>
+                </select>
+            </div>
+
+            <button type="submit">Consultar Clase</button>
+        </form>
+
+        <div id="horario-resultado" class="horario-resultado">
+            <div id="mensaje-respuesta"></div>
+
+            <table class="tabla-horario" id="tabla-info" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Curso</th>
+                        <th>Día</th>
+                        <th>Horario</th>
+                        <th>Profesor</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-tabla">
+                </tbody>
+            </table>
+        </div>
+
+        <a href="/cursos" class="btn-volver">← Volver a Cursos</a>
+    </div>
+
+    <script>
+        document.getElementById('form-vivo').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const contenedorResultado = document.getElementById('horario-resultado');
+            const mensajeRespuesta = document.getElementById('mensaje-respuesta');
+            const tablaInfo = document.getElementById('tabla-info');
+            const cuerpoTabla = document.getElementById('cuerpo-tabla');
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('/obtener_inscripcion', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                contenedorResultado.style.display = 'block';
+
+                if (response.ok && data.status === 'success') {
+                    mensajeRespuesta.className = 'mensaje-exito';
+                    mensajeRespuesta.innerHTML = `<strong>¡Bienvenido(a), ${data.nombre_alumno}!</strong><br>Horario y profesor disponible para tu consulta:`;
+
+                    cuerpoTabla.innerHTML = '';
+                    data.clases.forEach(clase => {
+                        const fila = document.createElement('tr');
+                        fila.innerHTML = `
+                            <td>${clase.curso}</td>
+                            <td>${clase.dia}</td>
+                            <td>${clase.horario}</td>
+                            <td>${clase.profesor}</td>
+                        `;
+                        cuerpoTabla.appendChild(fila);
+                    });
+
+                    tablaInfo.style.display = 'table';
+                } else {
+                    mensajeRespuesta.className = 'mensaje-error';
+                    mensajeRespuesta.textContent = data.message || 'Error al consultar.';
+                    tablaInfo.style.display = 'none';
+                }
+            } catch (error) {
+                contenedorResultado.style.display = 'block';
+                mensajeRespuesta.className = 'mensaje-error';
+                mensajeRespuesta.textContent = 'Error al conectar con el servidor.';
+                tablaInfo.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>

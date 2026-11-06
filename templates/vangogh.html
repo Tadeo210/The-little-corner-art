@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vincent van Gogh - Biografía y Obras</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/artistas2.css')}}">
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="logo">
+            Nuestra Pagina Web
+        </div>
+        <nav>
+            <a href="/artistas">← Volver a Artistas</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="pagina-artista">
+        <!-- SECCIÓN BIOGRAFÍA -->
+        <section class="seccion-biografia">
+            <h1>Vincent van Gogh</h1>
+            <div class="contenedor-bio">
+                <div class="bio-texto">
+                    <h2>Biografía</h2>
+                    <p>
+                        Vincent Willem van Gogh (Zundert, 30 de marzo de 1853-Auvers-sur-Oise, 29 de julio de 1890) fue un pintor neerlandés, uno de los máximos exponentes del postimpresionismo. Pintó unos 800 cuadros y realizó más de 1600 dibujos a lo largo de su vida, aunque en vida apenas logró vender unas pocas obras y luchó constantemente contra problemas de salud mental y pobreza.
+                    </p>
+                    <p>
+                        Su estilo se caracteriza por el uso de colores vivos, pinceladas impetuosas y trazos cargados de una profunda emoción y dinamismo. Aunque su carrera artística duró apenas una década, su producción influyó de manera decisiva en las vanguardias artísticas del siglo XX, convirtiéndolo en uno de los artistas más célebres y universales de la historia.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN OBRAS RECONOCIDAS -->
+        <section class="seccion-obras">
+            <h2>Pinturas Más Reconocidas</h2>
+            <div class="grid-obras">
+                <!-- Obra 1 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen13.jpg')}}" alt="La noche estrellada">
+                    <div class="obra-info">
+                        <h3>La noche estrellada (1889)</h3>
+                        <p>
+                            Pintada desde la ventana de su habitación en el sanatorio mental de Saint-Rémy-de-Provence. Es una de sus obras maestras más icónicas, famosa por sus dinámicos remolinos de nubes, las estrellas brillantes y el imponente ciprés en primer plano.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 2 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen14.jpg')}}" alt="Los girasoles">
+                    <div class="obra-info">
+                        <h3>Los girasoles (1888)</h3>
+                        <p>
+                            Una serie de naturalezas muertas que capturan diferentes etapas de la vida de los girasoles, desde capullos hasta su marchitamiento. Destaca por el uso vibrante de múltiples tonalidades de amarillo y su fuerte expresión de optimismo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 3 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen15.jpg')}}" alt="Ramas de almendro en flor">
+                    <div class="obra-info">
+                        <h3>Ramas de almendro en flor (1890)</h3>
+                        <p>
+                            Obra pintada en honor al nacimiento de su sobrino. Inspirada en el arte tradicional japonés de estampa en madera, representa delicadas ramas blancas contra un cielo turquesa, simbolizando la nueva vida y la esperanza.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PAGINA -->
+    <footer>
+        <p>© 2026 Mi Pagina Web | Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>

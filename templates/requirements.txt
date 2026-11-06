@@ -1,0 +1,4 @@
+
+Flask
+qrcode[pil]
+mysql-connector-python

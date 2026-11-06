@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pablo Picasso - Biografía y Obras</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/artistas2.css')}}">
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="logo">
+            Nuestra Pagina Web
+        </div>
+        <nav>
+            <a href="/artistas">← Volver a Artistas</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="pagina-artista">
+        <!-- SECCIÓN BIOGRAFÍA -->
+        <section class="seccion-biografia">
+            <h1>Pablo Picasso</h1>
+            <div class="contenedor-bio">
+                <div class="bio-texto">
+                    <h2>Biografía</h2>
+                    <p>
+                        Pablo Ruiz Picasso (Málaga, 25 de octubre de 1881-Mougins, 8 de abril de 1973) fue un pintor y escultor español, creador, junto con Georges Braque, del movimiento cubista. Es considerado uno de los mayores artistas del siglo XX y participó en la fundación de numerosas corrientes artísticas que revolucionaron la forma de entender el arte moderno.
+                    </p>
+                    <p>
+                        A lo largo de su prolífica carrera, que abarcó más de setenta años, Picasso experimentó con una enorme variedad de estilos, pasando por su famosa época azul y época rosa, hasta llegar a la abstracción y el surrealismo. Su genialidad creativa y su capacidad de reinvención lo convirtieron en un icono cultural indiscutible a nivel mundial.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN OBRAS RECONOCIDAS -->
+        <section class="seccion-obras">
+            <h2>Pinturas Más Reconocidas</h2>
+            <div class="grid-obras">
+                <!-- Obra 1 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen4.jpg')}}" alt="Guernica">
+                    <div class="obra-info">
+                        <h3>Guernica (1937)</h3>
+                        <p>
+                            Una de las obras políticas y artísticas más impactantes del siglo XX. Muestra los sufrimientos de la guerra y los estragos infligidos en la población civil durante el bombardeo de Guernica, utilizando una paleta monocromática y un fuerte simbolismo expresionista.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 2 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen5.jpg')}}" alt="Las señoritas de Aviñón">
+                    <div class="obra-info">
+                        <h3>Las señoritas de Aviñón (1907)</h3>
+                        <p>
+                            Cuadro clave que rompió radicalmente con el realismo y la perspectiva tradicional. Es considerado el punto de partida del cubismo, destacándose por sus formas angulares, rostros inspirados en máscaras africanas y una nueva visión geométrica del espacio.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Obra 3 -->
+                <div class="tarjeta-obra">
+                    <img src="{{url_for('static', filename='imgs/imagen6.jpg')}}" alt="La mujer que llora">
+                    <div class="obra-info">
+                        <h3>La mujer que llora (1937)</h3>
+                        <p>
+                            Parte de una serie de obras obsesionadas con el tema del sufrimiento trágico derivado del bombardeo del Guernica. Representa el dolor universal a través de colores vivos, líneas cortantes y una profunda distorsión emocional.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PAGINA -->
+    <footer>
+        <p>© 2026 Mi Pagina Web | Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>

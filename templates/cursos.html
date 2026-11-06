@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos de Arte - The Little Corner of Art</title>
+    <link href="{{ url_for('static', filename='css/cursos.css')}}" rel="stylesheet">
+</head>
+<body>
+
+    <!-- BARRA DE MENÚ (IGUAL A LA DE INICIO) -->
+    <header>
+        <div class="logo">🎨 The Little Corner of Art</div>
+        <nav aria-label="Navegación principal">
+            <a href="/">Inicio</a>
+            <a href="/info">Información</a>
+            <a href="/cursos">Cursos</a>
+            <a href="/artistas">Artistas</a>
+        </nav>
+    </header>
+
+    <!-- PORTADA -->
+    <section class="portada">
+        <div class="fondo"></div>
+        <div class="titulo">
+            <h1>CURSOS</h1>
+            <p>Aprende, crea y desarrolla tu talento artístico</p>
+        </div>
+    </section>
+
+    <!-- TARJETAS PRINCIPALES (CON ENLACES) -->
+    <section class="tarjetas">
+        <a href="/clasevivo" class="tarjeta-link">
+            <div class="tarjeta">
+                <div class="icono">🎨</div>
+                <h2>Clases en Vivo</h2>
+                <p>Aprende con profesores de arte y practica tus técnicas.</p>
+            </div>
+        </a>
+        <a href="/horarios" class="tarjeta-link">
+            <div class="tarjeta">
+                <div class="icono">◷</div>
+                <h2>Horarios Flexibles</h2>
+                <p>Organiza tus clases de acuerdo con tu tiempo disponible.</p>
+            </div>
+        </a>
+        <a href="/clasegra" class="tarjeta-link">
+            <div class="tarjeta">
+                <div class="icono">✎</div>
+                <h2>Aprende desde Cero</h2>
+                <p>Comienza desde lo básico o mejora tus habilidades.</p>
+            </div>
+        </a>
+    </section>
+
+    <!-- PROFESORES CON TOOLTIP/HOVER -->
+    <section class="profesores">
+        <h2>Conoce a nuestros profesores</h2>
+        <div class="profesores-contenedor">
+            
+            <div class="profesor">
+                <div class="info-hover">
+                    <strong>Marcela Danrez</strong><br>
+                    Materia: Acuarela<br>
+                    <em>Lic. en Artes Plásticas con 8 años de experiencia.</em>
+                </div>
+                <div class="foto">M</div>
+                <h3>Marcela Danrez</h3>
+                <p>Acuarela</p>
+            </div>
+
+            <div class="profesor">
+                <div class="info-hover">
+                    <strong>Danán Longo</strong><br>
+                    Materia: Escultura<br>
+                    <em>Escultor profesional con exposiciones internacionales.</em>
+                </div>
+                <div class="foto">D</div>
+                <h3>Danán Longo</h3>
+                <p>Escultura</p>
+            </div>
+
+            <div class="profesor">
+                <div class="info-hover">
+                    <strong>Dlarid Samon</strong><br>
+                    Materia: Ilustración Digital<br>
+                    <em>Diseñador conceptual y concept artist de videojuegos.</em>
+                </div>
+                <div class="foto">D</div>
+                <h3>Dlarid Samon</h3>
+                <p>Ilustración Digital</p>
+            </div>
+
+            <div class="profesor">
+                <div class="info-hover">
+                    <strong>Martina Careliez</strong><br>
+                    Materia: Acuarela<br>
+                    <em>Especialista en acuarela botánica y paisajes.</em>
+                </div>
+                <div class="foto">M</div>
+                <h3>Martina Careliez</h3>
+                <p>Acuarela</p>
+            </div>
+
+            <div class="profesor">
+                <div class="info-hover">
+                    <strong>Dabrid Sammon</strong><br>
+                    Materia: Pintura<br>
+                    <em>Maestro en Bellas Artes especializado en óleo y acrílico.</em>
+                </div>
+                <div class="foto">D</div>
+                <h3>Dabrid Sammon</h3>
+                <p>Pintura</p>
+            </div>
+
+        </div>
+
+        <a href="/registro" class="boton" id="btn-ver-cursos">REGÍSTRATE</a>
+    </section>
+
+    <!-- CURSOS -->
+    <section class="cursos">
+        <h2>Explora nuestros cursos</h2>
+        <div class="cursos-contenedor">
+            <a href="/cursopin" class="tarjeta-link">
+                <div class="curso">
+                    <div class="curso-imagen pintura"></div>
+                    <h3>Pintura</h3>
+                    <p>Aprende diferentes técnicas de pintura.</p>
+                </div>
+            </a>
+            <a href="/cursodib" class="tarjeta-link">
+                <div class="curso">
+                    <div class="curso-imagen dibujo"></div>
+                    <h3>Dibujo</h3>
+                    <p>Mejora tus trazos y aprende nuevas técnicas.</p>
+                </div>
+            </a>
+            <a href="/cursoesc" class="tarjeta-link">
+                <div class="curso">
+                    <div class="curso-imagen escultura"></div>
+                    <h3>Escultura</h3>
+                    <p>Conoce las bases para crear esculturas.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+</body>
+</html>
