@@ -1,0 +1,8 @@
+
+Flask
+qrcode[pil]
+mysql-connector-python
+Flask
+mysql-connector-python
+qrcode
+Pillow
