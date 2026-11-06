@@ -1,10 +1,21 @@
 import io
 import base64
+import os
 import qrcode
-import database as db
+import mysql.connector
 from flask import Flask, render_template, request, jsonify, url_for
 
 app = Flask(__name__)
+
+def get_db():
+    return mysql.connector.connect(
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME"),
+        port=int(os.getenv("DB_PORT", 14458)),
+        ssl_disabled=False  # Requerido para Aiven
+    )
 
 # --- Ruta para la página donde se ingresa el ID y se genera el QR ---
 @app.route("/generar_qr")
@@ -20,10 +31,12 @@ def api_generar_qr():
         return jsonify({'status': 'error', 'message': 'Por favor, ingresa un ID válido.'}), 400
 
     try:
-        cursor = db.db.cursor(dictionary=True)
+        conn = get_db()
+        cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT id FROM alumnos WHERE id = %s", (id_alumno,))
         alumno = cursor.fetchone()
         cursor.close()
+        conn.close()
 
         if not alumno:
             return jsonify({'status': 'error', 'message': f'El alumno con ID #{id_alumno} no existe en la base de datos.'}), 404
@@ -56,7 +69,8 @@ def api_generar_qr():
 @app.route("/carnet/<int:id_alumno>")
 def ver_carnet(id_alumno):
     try:
-        cursor = db.db.cursor(dictionary=True)
+        conn = get_db()
+        cursor = conn.cursor(dictionary=True)
         sql = """
             SELECT a.id, a.nombre, a.apellido, a.fecha_nacimiento, a.grupo,
                    IFNULL(c.nombre, 'Sin Curso') AS curso,
@@ -71,6 +85,7 @@ def ver_carnet(id_alumno):
         cursor.execute(sql, (id_alumno,))
         alumno_data = cursor.fetchone()
         cursor.close()
+        conn.close()
 
         return render_template("carnet.html", alumno=alumno_data, id_buscado=id_alumno)
 
@@ -173,16 +188,18 @@ def registrar():
     apellido = request.form.get('apellido')
     fecha_nacimiento = request.form.get('fecha_nacimiento')
     grupo = request.form.get('grupo')
-    id_curso = request.form.get('id_curso') # <--- Capturar el curso
+    id_curso = request.form.get('id_curso')
 
     if nombre and apellido and fecha_nacimiento and grupo and id_curso:
         try:
-            cursor = db.db.cursor()
+            conn = get_db()
+            cursor = conn.cursor()
             sql = "INSERT INTO alumnos (nombre, apellido, fecha_nacimiento, grupo, id_curso) VALUES (%s, %s, %s, %s, %s)"
             cursor.execute(sql, (nombre, apellido, fecha_nacimiento, grupo, id_curso))
-            db.db.commit()
+            conn.commit()
             nuevo_id = cursor.lastrowid
             cursor.close()
+            conn.close()
 
             return jsonify({'status': 'success', 'id_alumno': nuevo_id, 'message': '¡Registro Exitoso!'})
         except Exception as e:
@@ -201,13 +218,15 @@ def obtener_inscripcion():
         return jsonify({'status': 'error', 'message': 'Por favor, ingresa tu ID y selecciona un curso.'}), 400
 
     try:
-        cursor = db.db.cursor(dictionary=True)
+        conn = get_db()
+        cursor = conn.cursor(dictionary=True)
 
         cursor.execute("SELECT nombre, apellido FROM alumnos WHERE id = %s", (id_alumno,))
         alumno = cursor.fetchone()
 
         if not alumno:
             cursor.close()
+            conn.close()
             return jsonify({'status': 'error', 'message': f'El ID {id_alumno} no se encuentra registrado.'}), 404
 
         sql = """
@@ -220,6 +239,7 @@ def obtener_inscripcion():
         clases = cursor.fetchall()
 
         cursor.close()
+        conn.close()
 
         if not clases:
             return jsonify({'status': 'error', 'message': 'No se encontraron horarios para el curso seleccionado.'}), 404
@@ -244,7 +264,8 @@ def obtener_inscripcion():
 @app.route("/api/admin/datos", methods=['GET'])
 def obtener_datos_admin():
     try:
-        cursor = db.db.cursor(dictionary=True)
+        conn = get_db()
+        cursor = conn.cursor(dictionary=True)
 
         sql_alumnos = """
             SELECT a.id, a.nombre, a.apellido, a.fecha_nacimiento, a.grupo, a.id_curso,
@@ -268,6 +289,7 @@ def obtener_datos_admin():
         lista_profesores = cursor.fetchall()
 
         cursor.close()
+        conn.close()
 
         return jsonify({
             'status': 'success',
@@ -284,12 +306,14 @@ def obtener_datos_admin():
 def agregar_alumno():
     data = request.json
     try:
-        cursor = db.db.cursor()
+        conn = get_db()
+        cursor = conn.cursor()
         sql = "INSERT INTO alumnos (nombre, apellido, fecha_nacimiento, grupo, id_curso) VALUES (%s, %s, %s, %s, %s)"
         values = (data['nombre'], data['apellido'], data['fecha_nacimiento'], data['grupo'], data['id_curso'])
         cursor.execute(sql, values)
-        db.db.commit()
+        conn.commit()
         cursor.close()
+        conn.close()
         return jsonify({'status': 'success', 'message': 'Alumno registrado correctamente'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
@@ -300,12 +324,14 @@ def agregar_alumno():
 def actualizar_alumno(id_alumno):
     data = request.json
     try:
-        cursor = db.db.cursor()
+        conn = get_db()
+        cursor = conn.cursor()
         sql = "UPDATE alumnos SET nombre=%s, apellido=%s, fecha_nacimiento=%s, grupo=%s, id_curso=%s WHERE id=%s"
         values = (data['nombre'], data['apellido'], data['fecha_nacimiento'], data['grupo'], data['id_curso'], id_alumno)
         cursor.execute(sql, values)
-        db.db.commit()
+        conn.commit()
         cursor.close()
+        conn.close()
         return jsonify({'status': 'success', 'message': 'Alumno actualizado correctamente'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
@@ -315,10 +341,12 @@ def actualizar_alumno(id_alumno):
 @app.route("/api/alumnos/<int:id_alumno>", methods=['DELETE'])
 def eliminar_alumno(id_alumno):
     try:
-        cursor = db.db.cursor()
+        conn = get_db()
+        cursor = conn.cursor()
         cursor.execute("DELETE FROM alumnos WHERE id = %s", (id_alumno,))
-        db.db.commit()
+        conn.commit()
         cursor.close()
+        conn.close()
         return jsonify({'status': 'success', 'message': 'Alumno eliminado correctamente'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
@@ -333,11 +361,13 @@ def eliminar_alumno(id_alumno):
 def agregar_profesor():
     data = request.json
     try:
-        cursor = db.db.cursor()
+        conn = get_db()
+        cursor = conn.cursor()
         sql = "INSERT INTO profesores (nombre, especialidad) VALUES (%s, %s)"
         cursor.execute(sql, (data['nombre'], data['especialidad']))
-        db.db.commit()
+        conn.commit()
         cursor.close()
+        conn.close()
         return jsonify({'status': 'success', 'message': 'Profesor registrado correctamente'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
@@ -346,11 +376,13 @@ def agregar_profesor():
 def actualizar_profesor(id_profesor):
     data = request.json
     try:
-        cursor = db.db.cursor()
+        conn = get_db()
+        cursor = conn.cursor()
         sql = "UPDATE profesores SET nombre=%s, especialidad=%s WHERE id=%s"
         cursor.execute(sql, (data['nombre'], data['especialidad'], id_profesor))
-        db.db.commit()
+        conn.commit()
         cursor.close()
+        conn.close()
         return jsonify({'status': 'success', 'message': 'Profesor actualizado correctamente'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
@@ -358,10 +390,12 @@ def actualizar_profesor(id_profesor):
 @app.route("/api/profesores/<int:id_profesor>", methods=['DELETE'])
 def eliminar_profesor(id_profesor):
     try:
-        cursor = db.db.cursor()
+        conn = get_db()
+        cursor = conn.cursor()
         cursor.execute("DELETE FROM profesores WHERE id = %s", (id_profesor,))
-        db.db.commit()
+        conn.commit()
         cursor.close()
+        conn.close()
         return jsonify({'status': 'success', 'message': 'Profesor eliminado correctamente'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
@@ -373,11 +407,13 @@ def eliminar_profesor(id_profesor):
 def agregar_curso():
     data = request.json
     try:
-        cursor = db.db.cursor()
+        conn = get_db()
+        cursor = conn.cursor()
         sql = "INSERT INTO cursos (nombre, horario, dia, id_profesor) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (data['nombre'], data['horario'], data['dia'], data['id_profesor']))
-        db.db.commit()
+        conn.commit()
         cursor.close()
+        conn.close()
         return jsonify({'status': 'success', 'message': 'Curso registrado correctamente'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
@@ -386,11 +422,13 @@ def agregar_curso():
 def actualizar_curso(id_curso):
     data = request.json
     try:
-        cursor = db.db.cursor()
+        conn = get_db()
+        cursor = conn.cursor()
         sql = "UPDATE cursos SET nombre=%s, horario=%s, dia=%s, id_profesor=%s WHERE id=%s"
         cursor.execute(sql, (data['nombre'], data['horario'], data['dia'], data['id_profesor'], id_curso))
-        db.db.commit()
+        conn.commit()
         cursor.close()
+        conn.close()
         return jsonify({'status': 'success', 'message': 'Curso actualizado correctamente'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
@@ -398,10 +436,12 @@ def actualizar_curso(id_curso):
 @app.route("/api/cursos/<int:id_curso>", methods=['DELETE'])
 def eliminar_curso(id_curso):
     try:
-        cursor = db.db.cursor()
+        conn = get_db()
+        cursor = conn.cursor()
         cursor.execute("DELETE FROM cursos WHERE id = %s", (id_curso,))
-        db.db.commit()
+        conn.commit()
         cursor.close()
+        conn.close()
         return jsonify({'status': 'success', 'message': 'Curso eliminado correctamente'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
